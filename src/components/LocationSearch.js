@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext.js';
 import { geocodeAddress, searchPlaces, fallbackGeocode } from '../utils/geocoding.js';
 
-export default function LocationSearch({ onSelectLocation, placeholder = "Search for a location...", value = '', isLoading = false }) {
+export default function LocationSearch({
+  onSelectLocation,
+  placeholder = 'Search for a location...',
+  value = '',
+  isLoading = false,
+}) {
   const { theme } = useTheme();
   const [searchText, setSearchText] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -17,20 +31,20 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
     {
       name: 'BU Student Center',
       address: '775 Commonwealth Ave, Boston, MA 02215',
-      latitude: 42.3500,
-      longitude: -71.1050,
+      latitude: 42.35,
+      longitude: -71.105,
     },
     {
       name: 'Mugar Library',
       address: '771 Commonwealth Ave, Boston, MA 02215',
-      latitude: 42.3510,
-      longitude: -71.1040,
+      latitude: 42.351,
+      longitude: -71.104,
     },
     {
       name: 'BU Fitness Center',
       address: '915 Commonwealth Ave, Boston, MA 02215',
-      latitude: 42.3490,
-      longitude: -71.1060,
+      latitude: 42.349,
+      longitude: -71.106,
     },
     {
       name: 'Starbucks on Campus',
@@ -41,14 +55,14 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
     {
       name: 'Warren Towers',
       address: '700 Commonwealth Ave, Boston, MA 02215',
-      latitude: 42.3520,
-      longitude: -71.1030,
+      latitude: 42.352,
+      longitude: -71.103,
     },
     {
       name: 'Marsh Chapel',
       address: '735 Commonwealth Ave, Boston, MA 02215',
-      latitude: 42.3480,
-      longitude: -71.1070,
+      latitude: 42.348,
+      longitude: -71.107,
     },
     {
       name: 'BU Beach',
@@ -65,7 +79,7 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
   ];
 
   // Search for locations using Google Places API
-  const performSearch = async (query) => {
+  const performSearch = async query => {
     if (!query.trim()) {
       setSearchResults([]);
       return;
@@ -75,29 +89,33 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
     try {
       // First try Google Places API
       const placesResult = await searchPlaces(query);
-      
+
       if (placesResult.success) {
         setSearchResults(placesResult.places);
       } else {
         // Fallback to geocoding
         const geocodeResult = await geocodeAddress(query);
         if (geocodeResult.success) {
-          setSearchResults([{
-            name: query,
-            address: geocodeResult.formattedAddress,
-            latitude: geocodeResult.latitude,
-            longitude: geocodeResult.longitude,
-          }]);
+          setSearchResults([
+            {
+              name: query,
+              address: geocodeResult.formattedAddress,
+              latitude: geocodeResult.latitude,
+              longitude: geocodeResult.longitude,
+            },
+          ]);
         } else {
           // Final fallback to local database
           const fallbackResult = fallbackGeocode(query);
           if (fallbackResult.success) {
-            setSearchResults([{
-              name: query,
-              address: fallbackResult.formattedAddress,
-              latitude: fallbackResult.latitude,
-              longitude: fallbackResult.longitude,
-            }]);
+            setSearchResults([
+              {
+                name: query,
+                address: fallbackResult.formattedAddress,
+                latitude: fallbackResult.latitude,
+                longitude: fallbackResult.longitude,
+              },
+            ]);
           } else {
             setSearchResults([]);
           }
@@ -133,14 +151,14 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
     };
   }, [searchText]);
 
-  const handleLocationSelect = (location) => {
+  const handleLocationSelect = location => {
     setSearchText(location.name);
     setShowSuggestions(false);
     setSearchResults([]);
     onSelectLocation(location);
   };
 
-  const handleTextChange = (text) => {
+  const handleTextChange = text => {
     setSearchText(text);
     setShowSuggestions(text.length > 0);
   };
@@ -179,27 +197,30 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
     }
   };
 
-  const filteredBuLocations = buLocations.filter(location =>
-    location.name.toLowerCase().includes(searchText.toLowerCase()) ||
-    location.address.toLowerCase().includes(searchText.toLowerCase())
+  const filteredBuLocations = buLocations.filter(
+    location =>
+      location.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      location.address.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   return (
     <View style={styles.container}>
-      <View style={[
-        styles.searchContainer,
-        { 
-          backgroundColor: theme.colors.surface,
-          borderColor: theme.colors.border,
-        }
-      ]}>
-        <Ionicons 
-          name="location-outline" 
-          size={20} 
-          color={theme.colors.textSecondary} 
+      <View
+        style={[
+          styles.searchContainer,
+          {
+            backgroundColor: theme.colors.surface,
+            borderColor: theme.colors.border,
+          },
+        ]}
+      >
+        <Ionicons
+          name="location-outline"
+          size={20}
+          color={theme.colors.textSecondary}
           style={styles.searchIcon}
         />
-        
+
         {value ? (
           <View style={styles.selectedLocation}>
             <Text style={[styles.selectedLocationText, { color: theme.colors.textPrimary }]}>
@@ -211,10 +232,7 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
           </View>
         ) : (
           <TextInput
-            style={[
-              styles.searchInput,
-              { color: theme.colors.textPrimary }
-            ]}
+            style={[styles.searchInput, { color: theme.colors.textPrimary }]}
             placeholder={placeholder}
             placeholderTextColor={theme.colors.textTertiary}
             value={searchText}
@@ -225,22 +243,24 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
         )}
 
         {isSearching && (
-          <ActivityIndicator 
-            size="small" 
-            color={theme.colors.primary} 
+          <ActivityIndicator
+            size="small"
+            color={theme.colors.primary}
             style={styles.searchIndicator}
           />
         )}
       </View>
 
       {showSuggestions && (
-        <View style={[
-          styles.suggestionsContainer,
-          { 
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
-          }
-        ]}>
+        <View
+          style={[
+            styles.suggestionsContainer,
+            {
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border,
+            },
+          ]}
+        >
           <ScrollView style={styles.suggestionsList} showsVerticalScrollIndicator={false}>
             {/* Search Results */}
             {searchResults.length > 0 && (
@@ -251,22 +271,17 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
                 {searchResults.map((location, index) => (
                   <TouchableOpacity
                     key={`search-${index}`}
-                    style={[
-                      styles.suggestionItem,
-                      { borderBottomColor: theme.colors.border }
-                    ]}
+                    style={[styles.suggestionItem, { borderBottomColor: theme.colors.border }]}
                     onPress={() => handleLocationSelect(location)}
                   >
-                    <Ionicons 
-                      name="search" 
-                      size={16} 
-                      color={theme.colors.primary} 
-                    />
+                    <Ionicons name="search" size={16} color={theme.colors.primary} />
                     <View style={styles.suggestionContent}>
                       <Text style={[styles.suggestionName, { color: theme.colors.textPrimary }]}>
                         {location.name}
                       </Text>
-                      <Text style={[styles.suggestionAddress, { color: theme.colors.textSecondary }]}>
+                      <Text
+                        style={[styles.suggestionAddress, { color: theme.colors.textSecondary }]}
+                      >
                         {location.address}
                       </Text>
                     </View>
@@ -284,22 +299,17 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
                 {filteredBuLocations.map((location, index) => (
                   <TouchableOpacity
                     key={`bu-${index}`}
-                    style={[
-                      styles.suggestionItem,
-                      { borderBottomColor: theme.colors.border }
-                    ]}
+                    style={[styles.suggestionItem, { borderBottomColor: theme.colors.border }]}
                     onPress={() => handleLocationSelect(location)}
                   >
-                    <Ionicons 
-                      name="location" 
-                      size={16} 
-                      color={theme.colors.primary} 
-                    />
+                    <Ionicons name="location" size={16} color={theme.colors.primary} />
                     <View style={styles.suggestionContent}>
                       <Text style={[styles.suggestionName, { color: theme.colors.textPrimary }]}>
                         {location.name}
                       </Text>
-                      <Text style={[styles.suggestionAddress, { color: theme.colors.textSecondary }]}>
+                      <Text
+                        style={[styles.suggestionAddress, { color: theme.colors.textSecondary }]}
+                      >
                         {location.address}
                       </Text>
                     </View>
@@ -311,18 +321,11 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
             {/* Custom Location Option */}
             {searchText.trim() && (
               <TouchableOpacity
-                style={[
-                  styles.suggestionItem,
-                  { borderBottomColor: theme.colors.border }
-                ]}
+                style={[styles.suggestionItem, { borderBottomColor: theme.colors.border }]}
                 onPress={handleCustomLocation}
                 disabled={isSearching}
               >
-                <Ionicons 
-                  name="add-circle-outline" 
-                  size={16} 
-                  color={theme.colors.primary} 
-                />
+                <Ionicons name="add-circle-outline" size={16} color={theme.colors.primary} />
                 <Text style={[styles.suggestionName, { color: theme.colors.primary }]}>
                   {isSearching ? 'Searching...' : `Use "${searchText}" as location`}
                 </Text>
@@ -330,13 +333,16 @@ export default function LocationSearch({ onSelectLocation, placeholder = "Search
             )}
 
             {/* No Results */}
-            {searchText.trim() && searchResults.length === 0 && filteredBuLocations.length === 0 && !isSearching && (
-              <View style={styles.noResults}>
-                <Text style={[styles.noResultsText, { color: theme.colors.textSecondary }]}>
-                  No results found. Try searching for "coffee" or "library"
-                </Text>
-              </View>
-            )}
+            {searchText.trim() &&
+              searchResults.length === 0 &&
+              filteredBuLocations.length === 0 &&
+              !isSearching && (
+                <View style={styles.noResults}>
+                  <Text style={[styles.noResultsText, { color: theme.colors.textSecondary }]}>
+                    No results found. Try searching for "coffee" or "library"
+                  </Text>
+                </View>
+              )}
           </ScrollView>
         </View>
       )}
@@ -442,4 +448,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#888888',
   },
-}); 
+});

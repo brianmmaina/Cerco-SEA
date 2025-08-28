@@ -1,23 +1,23 @@
 // API Keys Configuration Template
-// 
+//
 // IMPORTANT: This is a template file. DO NOT commit your actual API keys to version control.
-// 
+//
 // To use this template:
 // 1. Copy this file to `src/config/apiKeys.js`
 // 2. Replace the placeholder values with your actual API keys
 // 3. The `apiKeys.js` file is already in .gitignore and will not be committed
 
 export const FIREBASE_CONFIG = {
-  apiKey: "your_firebase_api_key_here",
-  authDomain: "your_project_id.firebaseapp.com",
-  projectId: "your_project_id",
-  storageBucket: "your_project_id.firebasestorage.app",
-  messagingSenderId: "your_messaging_sender_id",
-  appId: "your_app_id",
-  measurementId: "your_measurement_id"
+  apiKey: 'your_firebase_api_key_here',
+  authDomain: 'your_project_id.firebaseapp.com',
+  projectId: 'your_project_id',
+  storageBucket: 'your_project_id.firebasestorage.app',
+  messagingSenderId: 'your_messaging_sender_id',
+  appId: 'your_app_id',
+  measurementId: 'your_measurement_id',
 };
 
-export const GOOGLE_MAPS_API_KEY = "your_google_maps_api_key_here";
+export const GOOGLE_MAPS_API_KEY = 'your_google_maps_api_key_here';
 
 // Instructions for getting API keys:
 //

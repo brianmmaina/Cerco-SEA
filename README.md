@@ -19,6 +19,7 @@ A React Native mobile app for students to discover, create, and engage with camp
 ## Features
 
 ### Core Features (Completed)
+
 - **Student-Only Authentication**: Email domain validation for student access
 - **Email Verification**: Secure signup with email verification flow
 - **Event Creation**: Full event creation with images, location, and details
@@ -31,6 +32,7 @@ A React Native mobile app for students to discover, create, and engage with camp
 - **Settings**: Comprehensive app preferences and account options
 
 ### Key Features
+
 - **Student Domain Validation**: Restricted to verified student emails
 - **Real-time Updates**: Live synchronization across all users
 - **Image Support**: Event posters and profile pictures
@@ -70,11 +72,13 @@ A React Native mobile app for students to discover, create, and engage with camp
 ## Setup
 
 ### Prerequisites
+
 - Node.js (v18+)
 - Expo CLI
 - Firebase project
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone <repository-url>
@@ -88,6 +92,7 @@ npm start
 ```
 
 ### Firebase Setup
+
 1. Create a Firebase project
 2. Enable Authentication, Firestore, and Storage
 3. Update `src/firebase/config.js` with your Firebase config
@@ -102,6 +107,7 @@ The `src/config/apiKeys.js` file containing your actual API keys is excluded fro
 #### Setup Instructions:
 
 1. **Copy all template files:**
+
    ```bash
    cp src/config/apiKeys.template.js src/config/apiKeys.js
    cp app.template.json app.json
@@ -110,21 +116,23 @@ The `src/config/apiKeys.js` file containing your actual API keys is excluded fro
    ```
 
 2. **Add your API keys to `src/config/apiKeys.js`:**
+
    ```javascript
    export const FIREBASE_CONFIG = {
-     apiKey: "your_actual_firebase_api_key",
-     authDomain: "your_project.firebaseapp.com",
-     projectId: "your_project_id",
-     storageBucket: "your_project.firebasestorage.app",
-     messagingSenderId: "your_sender_id",
-     appId: "your_app_id",
-     measurementId: "your_measurement_id"
+     apiKey: 'your_actual_firebase_api_key',
+     authDomain: 'your_project.firebaseapp.com',
+     projectId: 'your_project_id',
+     storageBucket: 'your_project.firebasestorage.app',
+     messagingSenderId: 'your_sender_id',
+     appId: 'your_app_id',
+     measurementId: 'your_measurement_id',
    };
 
-   export const GOOGLE_MAPS_API_KEY = "your_actual_google_maps_api_key";
+   export const GOOGLE_MAPS_API_KEY = 'your_actual_google_maps_api_key';
    ```
 
 3. **Update `app.json` with your Google Maps API key:**
+
    ```json
    {
      "ios": {
@@ -143,6 +151,7 @@ The `src/config/apiKeys.js` file containing your actual API keys is excluded fro
    ```
 
 4. **Update `.firebaserc` with your Firebase project ID:**
+
    ```json
    {
      "projects": {
@@ -152,29 +161,33 @@ The `src/config/apiKeys.js` file containing your actual API keys is excluded fro
    ```
 
 5. **Update `public/index.html` with your Firebase config for password reset:**
+
    ```javascript
    const firebaseConfig = {
-     apiKey: "your_firebase_api_key",
-     authDomain: "your_project_id.firebaseapp.com",
-     projectId: "your_project_id",
-     storageBucket: "your_project_id.firebasestorage.app",
-     messagingSenderId: "your_messaging_sender_id",
-     appId: "your_app_id"
+     apiKey: 'your_firebase_api_key',
+     authDomain: 'your_project_id.firebaseapp.com',
+     projectId: 'your_project_id',
+     storageBucket: 'your_project_id.firebasestorage.app',
+     messagingSenderId: 'your_messaging_sender_id',
+     appId: 'your_app_id',
    };
    ```
 
-3. **Get your API keys:**
+6. **Get your API keys:**
    - **Firebase**: Go to [Firebase Console](https://console.firebase.google.com/) → Project Settings → General → Your Apps
    - **Google Maps**: Go to [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials
 
 #### Why This Approach?
+
 - **Security**: Prevents accidental exposure of API keys
 - **Best Practice**: Industry standard for handling sensitive data
 - **Team Development**: Each developer can use their own keys
 - **Production Ready**: Easy to switch between development/production keys
 
 #### Alternative: Environment Variables
+
 For production, consider using environment variables:
+
 ```bash
 # .env file (also in .gitignore)
 EXPO_PUBLIC_FIREBASE_API_KEY=your_key
@@ -184,12 +197,14 @@ EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_key
 ## Design System
 
 ### Colors
+
 - **Primary**: BU Crimson (#C1002F)
 - **Secondary**: BU Gold (#FFC72C)
 - **Success**: Green (#34C759)
 - **Error**: Red (#B00020)
 
 ### Typography
+
 - **H1**: 32px, Bold
 - **H2**: 24px, Semi-bold
 - **Heading**: 18px, Semi-bold
@@ -209,11 +224,13 @@ EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_key
 ## Data Management
 
 ### Cloud Functions
+
 - **Daily Reset**: Resets daily engagement metrics
 - **Weekly Reset**: Resets weekly engagement metrics
 - **Cleanup**: Removes events older than 30 days
 
 ### Real-time Features
+
 - Live event updates
 - Real-time engagement tracking
 - Instant user interaction feedback
@@ -221,6 +238,7 @@ EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_key
 ## Deployment
 
 ### Expo Build
+
 ```bash
 # Build for iOS
 expo build:ios
@@ -230,6 +248,7 @@ expo build:android
 ```
 
 ### Firebase Functions
+
 ```bash
 # Deploy cloud functions
 firebase deploy --only functions
@@ -261,4 +280,3 @@ For support, email: support@cerco.app
 ---
 
 **Cerco** - Connecting students through events
-

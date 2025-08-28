@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext.js';
@@ -77,7 +70,7 @@ const EventCard = ({ event, onPress }) => {
   const { theme } = useTheme();
   const { getCommentsForEvent } = useComments();
   const { fontSize } = useResponsiveDimensions();
-  
+
   // Get real comment count for this event
   const comments = getCommentsForEvent(event.id);
   const commentCount = comments.length;
@@ -86,16 +79,16 @@ const EventCard = ({ event, onPress }) => {
     <TouchableOpacity
       style={[
         styles.eventCard,
-        { 
+        {
           backgroundColor: theme.colors.surface,
           borderColor: theme.colors.border,
           ...theme.shadows.sm,
-        }
+        },
       ]}
       onPress={onPress}
     >
       <Image source={{ uri: event.image }} style={styles.eventImage} />
-      
+
       <View style={styles.eventContent}>
         <View style={styles.eventHeader}>
           <Text style={[styles.eventTitle, { color: theme.colors.textPrimary }]}>
@@ -107,48 +100,53 @@ const EventCard = ({ event, onPress }) => {
             </View>
           )}
         </View>
-        
+
         <View style={styles.eventMeta}>
-          <Ionicons 
-            name="location-outline" 
-            size={fontSize.sm} 
-            color={theme.colors.textSecondary} 
-          />
-          <Text style={[styles.eventLocation, { color: theme.colors.textSecondary, fontSize: fontSize.sm }]}>
+          <Ionicons name="location-outline" size={fontSize.sm} color={theme.colors.textSecondary} />
+          <Text
+            style={[
+              styles.eventLocation,
+              { color: theme.colors.textSecondary, fontSize: fontSize.sm },
+            ]}
+          >
             {event.location}
           </Text>
         </View>
-        
+
         <View style={styles.eventMeta}>
-          <Ionicons 
-            name="time-outline" 
-            size={fontSize.sm} 
-            color={theme.colors.textSecondary} 
-          />
-          <Text style={[styles.eventTime, { color: theme.colors.textSecondary, fontSize: fontSize.sm }]}>
+          <Ionicons name="time-outline" size={fontSize.sm} color={theme.colors.textSecondary} />
+          <Text
+            style={[styles.eventTime, { color: theme.colors.textSecondary, fontSize: fontSize.sm }]}
+          >
             {event.time}
           </Text>
         </View>
-        
+
         <View style={styles.eventFooter}>
           <View style={styles.attendees}>
-            <Ionicons 
-              name="people-outline" 
-              size={fontSize.sm} 
-              color={theme.colors.textSecondary} 
-            />
-            <Text style={[styles.attendeesText, { color: theme.colors.textSecondary, fontSize: fontSize.sm }]}>
+            <Ionicons name="people-outline" size={fontSize.sm} color={theme.colors.textSecondary} />
+            <Text
+              style={[
+                styles.attendeesText,
+                { color: theme.colors.textSecondary, fontSize: fontSize.sm },
+              ]}
+            >
               {event.attendees}
             </Text>
           </View>
-          
+
           <View style={styles.comments}>
-            <Ionicons 
-              name="chatbubble-outline" 
-              size={fontSize.sm} 
-              color={theme.colors.textSecondary} 
+            <Ionicons
+              name="chatbubble-outline"
+              size={fontSize.sm}
+              color={theme.colors.textSecondary}
             />
-            <Text style={[styles.commentsText, { color: theme.colors.textSecondary, fontSize: fontSize.sm }]}>
+            <Text
+              style={[
+                styles.commentsText,
+                { color: theme.colors.textSecondary, fontSize: fontSize.sm },
+              ]}
+            >
               {commentCount}
             </Text>
           </View>
@@ -165,7 +163,17 @@ export default function FeedScreen({ navigation }) {
   const { isTablet, spacing } = useResponsiveDimensions();
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const categories = ['All', 'Sports', 'Academic', 'Social', 'Wellness', 'Arts', 'Technology', 'Food', 'Other'];
+  const categories = [
+    'All',
+    'Sports',
+    'Academic',
+    'Social',
+    'Wellness',
+    'Arts',
+    'Technology',
+    'Food',
+    'Other',
+  ];
 
   // Combine mock events with created events
   const allEvents = [
@@ -173,14 +181,15 @@ export default function FeedScreen({ navigation }) {
     ...createdEvents.map(event => ({
       ...event,
       isMock: false,
-    }))
+    })),
   ];
 
-  const filteredEvents = selectedCategory === 'All' 
-    ? allEvents 
-    : allEvents.filter(event => event.category === selectedCategory);
+  const filteredEvents =
+    selectedCategory === 'All'
+      ? allEvents
+      : allEvents.filter(event => event.category === selectedCategory);
 
-  const handleEventPress = (event) => {
+  const handleEventPress = event => {
     navigation.navigate('EventDetails', { event });
   };
 
@@ -189,40 +198,38 @@ export default function FeedScreen({ navigation }) {
       style={[
         styles.categoryButton,
         {
-          backgroundColor: selectedCategory === item 
-            ? theme.colors.primary 
-            : theme.colors.surface,
+          backgroundColor: selectedCategory === item ? theme.colors.primary : theme.colors.surface,
           borderColor: theme.colors.border,
-        }
+        },
       ]}
       onPress={() => setSelectedCategory(item)}
     >
-      <Text style={[
-        styles.categoryButtonText,
-        { 
-          color: selectedCategory === item 
-            ? theme.colors.textInverse 
-            : theme.colors.textPrimary 
-        }
-      ]}>
+      <Text
+        style={[
+          styles.categoryButtonText,
+          {
+            color: selectedCategory === item ? theme.colors.textInverse : theme.colors.textPrimary,
+          },
+        ]}
+      >
         {item}
       </Text>
     </TouchableOpacity>
   );
 
-    return (
-    <View style={[
-      styles.container, 
-      { 
-        backgroundColor: theme.colors.background,
-        paddingTop: Math.max(insets.top - 20, 20),
-      }
-    ]}>
+  return (
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          paddingTop: Math.max(insets.top - 20, 20),
+        },
+      ]}
+    >
       {/* Header */}
       <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>
-          Feed
-        </Text>
+        <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>Feed</Text>
       </View>
 
       {/* Categories */}
@@ -230,33 +237,37 @@ export default function FeedScreen({ navigation }) {
         <FlatList
           data={categories}
           renderItem={renderCategoryButton}
-          keyExtractor={(item) => item}
+          keyExtractor={item => item}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={[styles.categoriesList, { paddingHorizontal: isTablet ? spacing.xl : spacing.md }]}
+          contentContainerStyle={[
+            styles.categoriesList,
+            { paddingHorizontal: isTablet ? spacing.xl : spacing.md },
+          ]}
         />
       </View>
 
-            {/* Events List */}
-            <FlatList
-                data={filteredEvents}
-        renderItem={({ item }) => (
-          <EventCard event={item} onPress={() => handleEventPress(item)} />
-        )}
-                keyExtractor={(item) => item.id}
-        contentContainerStyle={[styles.eventsList, { paddingHorizontal: isTablet ? spacing.xl : spacing.md }]}
-                showsVerticalScrollIndicator={false}
+      {/* Events List */}
+      <FlatList
+        data={filteredEvents}
+        renderItem={({ item }) => <EventCard event={item} onPress={() => handleEventPress(item)} />}
+        keyExtractor={item => item.id}
+        contentContainerStyle={[
+          styles.eventsList,
+          { paddingHorizontal: isTablet ? spacing.xl : spacing.md },
+        ]}
+        showsVerticalScrollIndicator={false}
         numColumns={isTablet ? 2 : 1}
       />
     </View>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-      header: {
+  container: {
+    flex: 1,
+  },
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -264,7 +275,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingHorizontal: 20, // Added horizontal padding to prevent left cropping
   },
-    headerTitle: {
+  headerTitle: {
     fontSize: 18,
     fontFamily: 'Manrope_600SemiBold',
     letterSpacing: -0.5,
@@ -287,42 +298,42 @@ const styles = StyleSheet.create({
   },
   eventsList: {
     paddingBottom: 200, // Increased bottom padding for better tab bar clearance
-    },
-    eventCard: {
+  },
+  eventCard: {
     borderRadius: 16,
     marginBottom: 16,
     borderWidth: 1,
     overflow: 'hidden',
   },
-    eventImage: {
-        width: '100%',
-        height: 200,
-        resizeMode: 'cover',
-    },
-    eventContent: {
+  eventImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
+  },
+  eventContent: {
     padding: 20,
-    },
-    eventHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginBottom: 8,
-    },
+  },
+  eventHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 8,
+  },
   eventTitle: {
     fontSize: 16,
     fontFamily: 'Inter_600SemiBold',
     flex: 1,
   },
-    eventMeta: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 4,
-    },
-    eventLocation: {
+  eventMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  eventLocation: {
     marginLeft: 4,
     fontFamily: 'Inter_400Regular',
   },
-    eventTime: {
+  eventTime: {
     marginLeft: 4,
     fontFamily: 'Inter_400Regular',
   },

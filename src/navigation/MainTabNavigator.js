@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 export default function MainTabNavigator() {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -66,4 +66,4 @@ export default function MainTabNavigator() {
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
-} 
+}

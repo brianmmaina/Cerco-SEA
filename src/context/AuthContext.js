@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  signInWithEmailAndPassword, 
+import {
+  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
@@ -20,9 +20,9 @@ export const AuthProvider = ({ children }) => {
 
   // Listen for Firebase auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
       console.log('Auth state changed:', firebaseUser ? firebaseUser.email : 'No user');
-      
+
       if (firebaseUser) {
         // User is signed in
         try {
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
             setUser({
               id: firebaseUser.uid,
               email: firebaseUser.email,
-              ...userData
+              ...userData,
             });
             setIsProfileComplete(userData.isProfileComplete || false);
           } else {
@@ -74,13 +74,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Validate email format
-  const validateEmail = (email) => {
+  const validateEmail = email => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   // Validate password strength
-  const validatePassword = (password) => {
+  const validatePassword = password => {
     if (password.length < 6) {
       return { valid: false, error: 'Password must be at least 6 characters long' };
     }
@@ -115,15 +115,15 @@ export const AuthProvider = ({ children }) => {
         setUser({
           id: firebaseUser.uid,
           email: firebaseUser.email,
-          ...userData
+          ...userData,
         });
         setIsAuthenticated(true);
         setIsProfileComplete(userData.isProfileComplete || false);
-        
-        return { 
-          success: true, 
+
+        return {
+          success: true,
           isNewUser: false,
-          isProfileComplete: userData.isProfileComplete || false
+          isProfileComplete: userData.isProfileComplete || false,
         };
       } else {
         // New user, create basic profile in Firestore
@@ -138,27 +138,31 @@ export const AuthProvider = ({ children }) => {
           memberSince: new Date().getFullYear().toString(),
           createdAt: new Date().toISOString(),
         };
-        
+
         // Create user document in Firestore
         await setDoc(doc(db, 'users', firebaseUser.uid), newUserData);
-        
+
         // Update local state immediately
         setUser({
           id: firebaseUser.uid,
-          ...newUserData
+          ...newUserData,
         });
         setIsAuthenticated(true);
         setIsProfileComplete(false);
-        
-        return { 
-          success: true, 
+
+        return {
+          success: true,
           isNewUser: true,
-          isProfileComplete: false
+          isProfileComplete: false,
         };
       }
     } catch (error) {
       console.error('Login error:', error);
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+      if (
+        error.code === 'auth/user-not-found' ||
+        error.code === 'auth/wrong-password' ||
+        error.code === 'auth/invalid-credential'
+      ) {
         return { success: false, error: 'Invalid email or password' };
       } else if (error.code === 'auth/invalid-email') {
         return { success: false, error: 'Please enter a valid email address' };
@@ -225,11 +229,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const resetPassword = async (email) => {
+  const resetPassword = async email => {
     try {
       if (!email) return { success: false, error: 'Please enter your email' };
-      if (!validateEmail(email)) return { success: false, error: 'Please enter a valid email address' };
-      
+      if (!validateEmail(email))
+        return { success: false, error: 'Please enter a valid email address' };
+
       console.log('Attempting to send password reset email to:', email);
       await sendPasswordResetEmail(auth, email);
       console.log('Password reset email sent successfully');
@@ -238,7 +243,7 @@ export const AuthProvider = ({ children }) => {
       console.error('Reset password error:', error);
       console.error('Error code:', error.code);
       console.error('Error message:', error.message);
-      
+
       if (error.code === 'auth/user-not-found') {
         return { success: false, error: 'No account found for this email' };
       } else if (error.code === 'auth/invalid-email') {
@@ -259,7 +264,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const updateProfile = async (profileData) => {
+  const updateProfile = async profileData => {
     try {
       if (!user) {
         console.error('No user found for profile update');
@@ -291,7 +296,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const changePassword = async (_currentPassword, _newPassword) => {
-    return { success: false, error: 'Password change requires re-authentication. Please sign out and sign in again.' };
+    return {
+      success: false,
+      error: 'Password change requires re-authentication. Please sign out and sign in again.',
+    };
   };
 
   if (loading) {
@@ -299,17 +307,19 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{
-      isAuthenticated,
-      user,
-      isProfileComplete,
-      login,
-      signup,
-      logout,
-      updateProfile,
-      changePassword,
-      resetPassword,
-    }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        user,
+        isProfileComplete,
+        login,
+        signup,
+        logout,
+        updateProfile,
+        changePassword,
+        resetPassword,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -321,4 +331,4 @@ export const useAuth = () => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}; 
+};

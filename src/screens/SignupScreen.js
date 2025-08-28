@@ -40,7 +40,7 @@ export default function SignupScreen({ navigation }) {
     setIsLoading(true);
     try {
       const result = await signup(email, password, name);
-      
+
       if (result.success) {
         // Navigation is handled automatically by AuthenticatedNavigator
         console.log('Signup successful:', result);
@@ -56,24 +56,17 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingView}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {/* Back Button */}
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons 
-              name="arrow-back" 
-              size={24} 
-              color={theme.colors.textPrimary} 
-            />
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color={theme.colors.textPrimary} />
           </TouchableOpacity>
 
           {/* Header */}
@@ -81,7 +74,7 @@ export default function SignupScreen({ navigation }) {
             <View style={styles.logoContainer}>
               <Logo size="xlarge" withText={true} />
             </View>
-            
+
             <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
               Join the exclusive campus community
             </Text>
@@ -94,17 +87,19 @@ export default function SignupScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 Full Name
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="person-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="person-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -124,17 +119,19 @@ export default function SignupScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 University Email
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="mail-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="mail-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -152,20 +149,20 @@ export default function SignupScreen({ navigation }) {
 
             {/* Password Input */}
             <View style={styles.inputContainer}>
-              <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
-                Password
-              </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="lock-closed-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>Password</Text>
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -181,10 +178,10 @@ export default function SignupScreen({ navigation }) {
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.passwordToggle}
                 >
-                  <Ionicons 
-                    name={showPassword ? "eye-off-outline" : "eye-outline"} 
-                    size={20} 
-                    color={theme.colors.textSecondary} 
+                  <Ionicons
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={20}
+                    color={theme.colors.textSecondary}
                   />
                 </TouchableOpacity>
               </View>
@@ -195,17 +192,19 @@ export default function SignupScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 Confirm Password
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="lock-closed-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -221,10 +220,10 @@ export default function SignupScreen({ navigation }) {
                   onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                   style={styles.passwordToggle}
                 >
-                  <Ionicons 
-                    name={showConfirmPassword ? "eye-off-outline" : "eye-outline"} 
-                    size={20} 
-                    color={theme.colors.textSecondary} 
+                  <Ionicons
+                    name={showConfirmPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={20}
+                    color={theme.colors.textSecondary}
                   />
                 </TouchableOpacity>
               </View>
@@ -234,11 +233,11 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={[
                 styles.signupButton,
-                { 
+                {
                   backgroundColor: theme.colors.primary,
                   opacity: isLoading ? 0.7 : 1,
                   ...theme.shadows.md,
-                }
+                },
               ]}
               onPress={handleSignup}
               disabled={isLoading}
@@ -260,9 +259,7 @@ export default function SignupScreen({ navigation }) {
                 Already have an account?{' '}
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={[styles.loginLink, { color: theme.colors.primary }]}>
-                  Sign In
-                </Text>
+                <Text style={[styles.loginLink, { color: theme.colors.primary }]}>Sign In</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -359,4 +356,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Inter_400Regular',
   },
-}); 
+});

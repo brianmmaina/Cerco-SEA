@@ -29,7 +29,7 @@ export const formatEventDateTime = (date, time) => {
 };
 
 // Validate event data
-export const validateEventData = (eventData) => {
+export const validateEventData = eventData => {
   const errors = [];
 
   if (!eventData.title?.trim()) {
@@ -70,22 +70,24 @@ export const calculateEventDistance = (eventLocation, userLocation) => {
   const lat2 = eventLocation.latitude;
   const lon2 = eventLocation.longitude;
 
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c;
-  
+
   return distance;
 };
 
 // Format distance for display
-export const formatDistance = (distance) => {
+export const formatDistance = distance => {
   if (!distance) return null;
-  
+
   if (distance < 0.1) {
     return `${Math.round(distance * 5280)} ft`;
   } else if (distance < 1) {
@@ -96,19 +98,17 @@ export const formatDistance = (distance) => {
 };
 
 // Get event category color
-export const getEventCategoryColor = (category) => {
+export const getEventCategoryColor = category => {
   const colors = {
-    'Social': '#C1002F',
-    'Study': '#4CAF50',
-    'Sports': '#2196F3',
-    'Music': '#9C27B0',
-    'Food': '#FF9800',
-    'Other': '#607D8B',
+    Social: '#C1002F',
+    Study: '#4CAF50',
+    Sports: '#2196F3',
+    Music: '#9C27B0',
+    Food: '#FF9800',
+    Other: '#607D8B',
   };
   return colors[category] || '#607D8B';
 };
-
-
 
 // Create a new event object
 export const createNewEvent = (eventData, host) => {
@@ -127,4 +127,4 @@ export const createNewEvent = (eventData, host) => {
     liked: false,
     createdAt: new Date().toISOString(),
   };
-}; 
+};

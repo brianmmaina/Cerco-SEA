@@ -20,4 +20,4 @@ export const useResponsiveDimensions = () => {
     isLandscape: dimensions.width > dimensions.height,
     isPortrait: dimensions.height > dimensions.width,
   };
-}; 
+};

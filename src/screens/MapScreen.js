@@ -78,8 +78,8 @@ const mockEvents = [
     attendees: 12,
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
     coordinate: {
-      latitude: 42.3510,
-      longitude: -71.1060,
+      latitude: 42.351,
+      longitude: -71.106,
     },
     isMock: true,
   },
@@ -101,13 +101,15 @@ export default function MapScreen({ navigation }) {
   // Combine mock events with created events
   const allEvents = [
     ...mockEvents,
-    ...createdEvents.filter(event => event.coordinate).map(event => ({
-      ...event,
-      isMock: false,
-    }))
+    ...createdEvents
+      .filter(event => event.coordinate)
+      .map(event => ({
+        ...event,
+        isMock: false,
+      })),
   ];
 
-  const handleEventPress = (event) => {
+  const handleEventPress = event => {
     setSelectedEvent(selectedEvent?.id === event.id ? null : event);
   };
 
@@ -118,12 +120,14 @@ export default function MapScreen({ navigation }) {
   const CustomMarker = ({ event }) => (
     <View style={styles.markerContainer}>
       <Image source={{ uri: event.image }} style={styles.markerImage} />
-      <View style={[
-        styles.attendeeBadge, 
-        { 
-          backgroundColor: event.isMock ? theme.colors.primary : theme.colors.secondary 
-        }
-      ]}>
+      <View
+        style={[
+          styles.attendeeBadge,
+          {
+            backgroundColor: event.isMock ? theme.colors.primary : theme.colors.secondary,
+          },
+        ]}
+      >
         <Text style={[styles.attendeeCount, { color: theme.colors.textInverse }]}>
           {event.attendees}
         </Text>
@@ -137,22 +141,20 @@ export default function MapScreen({ navigation }) {
   );
 
   return (
-    <View style={[
-      styles.container, 
-      { 
-        backgroundColor: theme.colors.background,
-        paddingTop: Math.max(insets.top - 20, 20),
-      }
-    ]}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          paddingTop: Math.max(insets.top - 20, 20),
+        },
+      ]}
+    >
       {/* Map Section */}
       <View style={styles.mapSection}>
         {/* Map Header */}
         <View style={styles.mapHeader}>
-          <Ionicons 
-            name="location" 
-            size={20} 
-            color={theme.colors.primary} 
-          />
+          <Ionicons name="location" size={20} color={theme.colors.primary} />
           <Text style={[styles.mapTitle, { color: theme.colors.textPrimary }]}>
             Boston University Campus
           </Text>
@@ -167,7 +169,7 @@ export default function MapScreen({ navigation }) {
             showsUserLocation={false}
             showsMyLocationButton={false}
           >
-            {allEvents.map((event) => (
+            {allEvents.map(event => (
               <Marker
                 key={event.id}
                 coordinate={event.coordinate}
@@ -177,10 +179,10 @@ export default function MapScreen({ navigation }) {
                 <Callout
                   style={[
                     styles.callout,
-                    { 
+                    {
                       backgroundColor: theme.colors.surface,
                       borderColor: theme.colors.border,
-                    }
+                    },
                   ]}
                 >
                   <View style={styles.calloutContent}>
@@ -208,10 +210,10 @@ export default function MapScreen({ navigation }) {
           <View
             style={[
               styles.selectedCallout,
-              { 
+              {
                 backgroundColor: theme.colors.surface,
                 borderColor: theme.colors.border,
-              }
+              },
             ]}
           >
             <Image source={{ uri: selectedEvent.image }} style={styles.calloutImage} />
@@ -239,13 +241,13 @@ export default function MapScreen({ navigation }) {
       </View>
 
       {/* Events List */}
-      <ScrollView 
+      <ScrollView
         style={[
           styles.eventsList,
-          { 
+          {
             backgroundColor: theme.colors.surface,
             borderTopColor: theme.colors.border,
-          }
+          },
         ]}
         showsVerticalScrollIndicator={false}
       >
@@ -254,23 +256,21 @@ export default function MapScreen({ navigation }) {
             Events Near You
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Feed')}>
-            <Text style={[styles.viewAllText, { color: theme.colors.primary }]}>
-              View All
-            </Text>
+            <Text style={[styles.viewAllText, { color: theme.colors.primary }]}>View All</Text>
           </TouchableOpacity>
         </View>
-        
+
         <View style={styles.eventsGrid}>
-          {allEvents.slice(0, 4).map((event) => (
+          {allEvents.slice(0, 4).map(event => (
             <TouchableOpacity
               key={event.id}
               style={[
                 styles.eventCard,
-                { 
+                {
                   backgroundColor: theme.colors.background,
                   borderColor: theme.colors.border,
                   ...theme.shadows.sm,
-                }
+                },
               ]}
               onPress={() => navigation.navigate('EventDetails', { event })}
             >
@@ -468,4 +468,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Inter_400Regular',
   },
-}); 
+});

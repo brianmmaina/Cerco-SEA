@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext.js';
 import { useAuth } from '../context/AuthContext.js';
@@ -58,23 +53,19 @@ export default function HomeScreen({ navigation }) {
         {/* Features */}
         <View style={styles.featuresContainer}>
           {features.map((feature, index) => (
-            <View 
-              key={index} 
+            <View
+              key={index}
               style={[
-                styles.featureCard, 
-                { 
+                styles.featureCard,
+                {
                   backgroundColor: theme.colors.surface,
                   borderColor: theme.colors.border,
                   ...theme.shadows.sm,
-                }
+                },
               ]}
             >
               <View style={[styles.featureIcon, { backgroundColor: theme.colors.primary }]}>
-                <Ionicons 
-                  name={feature.icon} 
-                  size={20} 
-                  color={theme.colors.textInverse} 
-                />
+                <Ionicons name={feature.icon} size={20} color={theme.colors.textInverse} />
               </View>
               <View style={styles.featureContent}>
                 <Text style={[styles.featureTitle, { color: theme.colors.textPrimary }]}>
@@ -93,30 +84,26 @@ export default function HomeScreen({ navigation }) {
           <TouchableOpacity
             style={[
               styles.primaryButton,
-              { 
+              {
                 backgroundColor: theme.colors.primary,
                 ...theme.shadows.md,
-              }
+              },
             ]}
             onPress={() => navigation.navigate('Login')}
           >
             <Text style={[styles.primaryButtonText, { color: theme.colors.textInverse }]}>
               Sign In
             </Text>
-            <Ionicons 
-              name="arrow-forward" 
-              size={18} 
-              color={theme.colors.textInverse} 
-            />
+            <Ionicons name="arrow-forward" size={18} color={theme.colors.textInverse} />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
               styles.secondaryButton,
-              { 
+              {
                 backgroundColor: theme.colors.surface,
                 borderColor: theme.colors.border,
-              }
+              },
             ]}
             onPress={() => navigation.navigate('Signup')}
           >
@@ -219,4 +206,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Inter_400Regular',
   },
-}); 
+});

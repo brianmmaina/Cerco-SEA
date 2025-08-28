@@ -8,30 +8,32 @@ const baseHeight = 812;
 
 // Screen size breakpoints
 export const screenSizes = {
-  small: 320,    // iPhone SE, small Android devices
-  medium: 375,   // iPhone 11, 12, 13
-  large: 414,    // iPhone 11 Pro Max, 12 Pro Max, 13 Pro Max
-  xlarge: 768,   // iPad
+  small: 320, // iPhone SE, small Android devices
+  medium: 375, // iPhone 11, 12, 13
+  large: 414, // iPhone 11 Pro Max, 12 Pro Max, 13 Pro Max
+  xlarge: 768, // iPad
   xxlarge: 1024, // iPad Pro
 };
 
 // Device type detection
 export const isSmallDevice = SCREEN_WIDTH <= screenSizes.small;
-export const isMediumDevice = SCREEN_WIDTH > screenSizes.small && SCREEN_WIDTH <= screenSizes.medium;
+export const isMediumDevice =
+  SCREEN_WIDTH > screenSizes.small && SCREEN_WIDTH <= screenSizes.medium;
 export const isLargeDevice = SCREEN_WIDTH > screenSizes.medium && SCREEN_WIDTH <= screenSizes.large;
-export const isXLargeDevice = SCREEN_WIDTH > screenSizes.large && SCREEN_WIDTH <= screenSizes.xlarge;
+export const isXLargeDevice =
+  SCREEN_WIDTH > screenSizes.large && SCREEN_WIDTH <= screenSizes.xlarge;
 export const isXXLargeDevice = SCREEN_WIDTH > screenSizes.xlarge;
 
 export const isTablet = SCREEN_WIDTH >= screenSizes.xlarge;
 export const isPhone = SCREEN_WIDTH < screenSizes.xlarge;
 
 // Responsive scaling functions
-export const scale = (size) => {
+export const scale = size => {
   const newSize = size * (SCREEN_WIDTH / baseWidth);
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
 
-export const verticalScale = (size) => {
+export const verticalScale = size => {
   const newSize = size * (SCREEN_HEIGHT / baseHeight);
   return Math.round(PixelRatio.roundToNearestPixel(newSize));
 };
@@ -42,11 +44,11 @@ export const moderateScale = (size, factor = 0.5) => {
 };
 
 // Responsive dimensions
-export const responsiveWidth = (percentage) => {
+export const responsiveWidth = percentage => {
   return (SCREEN_WIDTH * percentage) / 100;
 };
 
-export const responsiveHeight = (percentage) => {
+export const responsiveHeight = percentage => {
   return (SCREEN_HEIGHT * percentage) / 100;
 };
 
@@ -299,4 +301,4 @@ export const useResponsive = () => {
     isTablet,
     isPhone,
   };
-}; 
+};

@@ -6,29 +6,26 @@ export default function MainAppScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Cerco!</Text>
       <Text style={styles.subtitle}>You&apos;re all set up and ready to go.</Text>
-      
+
       <View style={styles.tabContainer}>
         <TouchableOpacity style={styles.tab}>
           <Text style={styles.tabText}>Feed</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.tab}>
           <Text style={styles.tabText}>Map</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.tab}>
           <Text style={styles.tabText}>Calendar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.tab}>
           <Text style={styles.tabText}>Profile</Text>
         </TouchableOpacity>
       </View>
-      
-      <TouchableOpacity 
-        style={styles.logoutButton}
-        onPress={() => navigation.navigate('Home')}
-      >
+
+      <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.navigate('Home')}>
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
     </View>
@@ -85,4 +82,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-}); 
+});

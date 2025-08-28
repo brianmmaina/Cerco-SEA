@@ -3,12 +3,12 @@
 // Boston University campus boundaries
 export const BU_CAMPUS_BOUNDS = {
   northEast: {
-    latitude: 42.3550,
-    longitude: -71.1000,
+    latitude: 42.355,
+    longitude: -71.1,
   },
   southWest: {
-    latitude: 42.3450,
-    longitude: -71.1100,
+    latitude: 42.345,
+    longitude: -71.11,
   },
 };
 
@@ -16,15 +16,15 @@ export const BU_CAMPUS_BOUNDS = {
 export const BU_LOCATIONS = {
   studentCenter: {
     name: 'BU Student Center',
-    coordinate: { latitude: 42.3500, longitude: -71.1050 },
+    coordinate: { latitude: 42.35, longitude: -71.105 },
   },
   mugarLibrary: {
     name: 'Mugar Library',
-    coordinate: { latitude: 42.3510, longitude: -71.1040 },
+    coordinate: { latitude: 42.351, longitude: -71.104 },
   },
   fitnessCenter: {
     name: 'BU Fitness Center',
-    coordinate: { latitude: 42.3490, longitude: -71.1060 },
+    coordinate: { latitude: 42.349, longitude: -71.106 },
   },
   starbucks: {
     name: 'Starbucks on Campus',
@@ -32,30 +32,32 @@ export const BU_LOCATIONS = {
   },
   warrenTowers: {
     name: 'Warren Towers',
-    coordinate: { latitude: 42.3520, longitude: -71.1030 },
+    coordinate: { latitude: 42.352, longitude: -71.103 },
   },
   marshChapel: {
     name: 'Marsh Chapel',
-    coordinate: { latitude: 42.3480, longitude: -71.1070 },
+    coordinate: { latitude: 42.348, longitude: -71.107 },
   },
 };
 
 // Calculate distance between two coordinates (Haversine formula)
 export const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const R = 3959; // Earth's radius in miles
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c;
   return distance;
 };
 
 // Format distance for display
-export const formatDistance = (distance) => {
+export const formatDistance = distance => {
   if (distance < 0.1) {
     return `${Math.round(distance * 5280)} ft`;
   } else if (distance < 1) {
@@ -66,14 +68,14 @@ export const formatDistance = (distance) => {
 };
 
 // Get marker color based on event popularity
-export const getMarkerColor = (attendees) => {
+export const getMarkerColor = attendees => {
   if (attendees > 20) return '#C1002F'; // Red for popular events
   if (attendees > 10) return '#FFC72C'; // Gold for medium events
   return '#4CAF50'; // Green for small events
 };
 
 // Check if a coordinate is within BU campus
-export const isWithinBUCampus = (coordinate) => {
+export const isWithinBUCampus = coordinate => {
   return (
     coordinate.latitude >= BU_CAMPUS_BOUNDS.southWest.latitude &&
     coordinate.latitude <= BU_CAMPUS_BOUNDS.northEast.latitude &&
@@ -90,8 +92,8 @@ export const getRandomBULocation = () => {
 
 // Default map region centered on BU
 export const DEFAULT_MAP_REGION = {
-  latitude: 42.3500,
-  longitude: -71.1050,
+  latitude: 42.35,
+  longitude: -71.105,
   latitudeDelta: 0.01,
   longitudeDelta: 0.01,
-}; 
+};

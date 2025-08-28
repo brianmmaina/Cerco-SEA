@@ -29,4 +29,3 @@ jobs:
       # If you add TypeScript later, you can uncomment this:
       # - name: Type-check
       #   run: npx tsc --noEmit
-

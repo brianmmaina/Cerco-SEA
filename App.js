@@ -7,13 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import * as SplashScreen from 'expo-splash-screen';
 import { useSafeAreaInsets, SafeAreaProvider } from 'react-native-safe-area-context';
 import { LogBox } from 'react-native';
-import {
-  useFonts,
-  Manrope_600SemiBold,
-} from '@expo-google-fonts/manrope';
-import {
-  Inter_400Regular,
-} from '@expo-google-fonts/inter';
+import { useFonts, Manrope_600SemiBold } from '@expo-google-fonts/manrope';
+import { Inter_400Regular } from '@expo-google-fonts/inter';
 
 // Suppress noisy dev-time warnings
 LogBox.ignoreLogs([
@@ -50,10 +45,9 @@ const Tab = createBottomTabNavigator();
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
- 
 function ThemedStatusBar() {
   const { isDark } = useTheme();
-  return <StatusBar style={isDark ? "light" : "dark"} />;
+  return <StatusBar style={isDark ? 'light' : 'dark'} />;
 }
 
 function AppContent() {
@@ -74,11 +68,11 @@ function AppContent() {
 function AuthenticatedNavigator() {
   const { isAuthenticated, isProfileComplete, user } = useAuth();
 
-  console.log('Navigation state:', { 
-    isAuthenticated, 
-    isProfileComplete, 
+  console.log('Navigation state:', {
+    isAuthenticated,
+    isProfileComplete,
     userId: user?.id,
-    userEmail: user?.email 
+    userEmail: user?.email,
   });
 
   // Render distinct stacks to avoid mixed public/protected routes
@@ -165,5 +159,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-

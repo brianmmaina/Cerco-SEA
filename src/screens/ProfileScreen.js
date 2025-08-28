@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext.js';
@@ -17,9 +9,10 @@ export default function ProfileScreen({ navigation }) {
   const { theme, setThemeMode, themeMode, isDark } = useTheme();
   const { user, isProfileComplete } = useAuth();
   const insets = useSafeAreaInsets();
-  
+
   // Default avatar if user doesn't have one
-  const defaultAvatar = 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face';
+  const defaultAvatar =
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face';
 
   const menuItems = [
     {
@@ -39,52 +32,55 @@ export default function ProfileScreen({ navigation }) {
       icon: 'notifications-outline',
       title: 'Notifications',
       subtitle: 'Manage your preferences',
-      onPress: () => Alert.alert('Notifications', 'Notification settings will be available in a future update.'),
+      onPress: () =>
+        Alert.alert('Notifications', 'Notification settings will be available in a future update.'),
     },
     {
       icon: 'shield-outline',
       title: 'Privacy & Security',
       subtitle: 'Control your data',
-      onPress: () => Alert.alert('Privacy & Security', 'Privacy settings will be available in a future update.'),
+      onPress: () =>
+        Alert.alert('Privacy & Security', 'Privacy settings will be available in a future update.'),
     },
     {
       icon: 'help-circle-outline',
       title: 'Help & Support',
       subtitle: 'Get assistance',
-      onPress: () => Alert.alert('Help & Support', 'Help and support will be available in a future update.'),
+      onPress: () =>
+        Alert.alert('Help & Support', 'Help and support will be available in a future update.'),
     },
     {
       icon: 'information-circle-outline',
       title: 'About Cerco',
       subtitle: 'Version 1.0.0',
-      onPress: () => Alert.alert('About Cerco', 'Cerco v1.0.0\n\nA campus event discovery app for university students.'),
+      onPress: () =>
+        Alert.alert(
+          'About Cerco',
+          'Cerco v1.0.0\n\nA campus event discovery app for university students.',
+        ),
     },
   ];
 
   const { logout } = useAuth();
-  
+
   const handleLogout = () => {
-    Alert.alert(
-      'Sign Out',
-      'Are you sure you want to sign out?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
+    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Sign Out',
+        style: 'destructive',
+        onPress: async () => {
+          await logout();
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          });
         },
-        {
-          text: 'Sign Out',
-          style: 'destructive',
-          onPress: async () => {
-            await logout();
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Home' }],
-            });
-          },
-        },
-      ]
-    );
+      },
+    ]);
   };
 
   const toggleTheme = () => {
@@ -109,34 +105,36 @@ export default function ProfileScreen({ navigation }) {
   };
 
   return (
-    <View style={[
-      styles.container, 
-      { 
-        backgroundColor: theme.colors.background,
-        paddingTop: Math.max(insets.top - 40, 10),
-      }
-    ]}>
-      <ScrollView 
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          paddingTop: Math.max(insets.top - 40, 10),
+        },
+      ]}
+    >
+      <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>
-            Profile
-          </Text>
+          <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>Profile</Text>
         </View>
 
         {/* Profile Section */}
-        <View style={[
-          styles.profileSection,
-          { 
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
-            ...theme.shadows.sm,
-          }
-        ]}>
+        <View
+          style={[
+            styles.profileSection,
+            {
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border,
+              ...theme.shadows.sm,
+            },
+          ]}
+        >
           <View style={styles.profileHeader}>
             <Image source={{ uri: user?.avatar || defaultAvatar }} style={styles.avatar} />
             <View style={styles.profileInfo}>
@@ -179,19 +177,21 @@ export default function ProfileScreen({ navigation }) {
         </View>
 
         {/* Theme Toggle */}
-        <View style={[
-          styles.themeSection,
-          { 
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
-            ...theme.shadows.sm,
-          }
-        ]}>
+        <View
+          style={[
+            styles.themeSection,
+            {
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border,
+              ...theme.shadows.sm,
+            },
+          ]}
+        >
           <View style={styles.themeHeader}>
-            <Ionicons 
-              name={themeMode === 'dark' ? 'moon' : 'sunny'} 
-              size={20} 
-              color={theme.colors.textPrimary} 
+            <Ionicons
+              name={themeMode === 'dark' ? 'moon' : 'sunny'}
+              size={20}
+              color={theme.colors.textPrimary}
             />
             <View>
               <Text style={[styles.themeTitle, { color: theme.colors.textPrimary }]}>
@@ -207,17 +207,17 @@ export default function ProfileScreen({ navigation }) {
           <TouchableOpacity
             style={[
               styles.themeToggle,
-              { 
+              {
                 backgroundColor: theme.colors.primary,
                 ...theme.shadows.sm,
-              }
+              },
             ]}
             onPress={toggleTheme}
           >
-            <Ionicons 
-              name={isDark ? "moon" : "sunny"} 
-              size={16} 
-              color={theme.colors.textInverse} 
+            <Ionicons
+              name={isDark ? 'moon' : 'sunny'}
+              size={16}
+              color={theme.colors.textInverse}
               style={{ marginRight: 8 }}
             />
             <Text style={[styles.themeToggleText, { color: theme.colors.textInverse }]}>
@@ -227,14 +227,16 @@ export default function ProfileScreen({ navigation }) {
         </View>
 
         {/* Menu Items */}
-        <View style={[
-          styles.menuSection,
-          { 
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
-            ...theme.shadows.sm,
-          }
-        ]}>
+        <View
+          style={[
+            styles.menuSection,
+            {
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border,
+              ...theme.shadows.sm,
+            },
+          ]}
+        >
           {menuItems.map((item, index) => (
             <TouchableOpacity
               key={index}
@@ -243,16 +245,12 @@ export default function ProfileScreen({ navigation }) {
                 index < menuItems.length - 1 && {
                   borderBottomColor: theme.colors.border,
                   borderBottomWidth: 1,
-                }
+                },
               ]}
               onPress={item.onPress}
             >
               <View style={styles.menuItemLeft}>
-                <Ionicons 
-                  name={item.icon} 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
-                />
+                <Ionicons name={item.icon} size={20} color={theme.colors.textSecondary} />
                 <View style={styles.menuItemContent}>
                   <Text style={[styles.menuItemTitle, { color: theme.colors.textPrimary }]}>
                     {item.title}
@@ -262,11 +260,7 @@ export default function ProfileScreen({ navigation }) {
                   </Text>
                 </View>
               </View>
-              <Ionicons 
-                name="chevron-forward" 
-                size={16} 
-                color={theme.colors.textTertiary} 
-              />
+              <Ionicons name="chevron-forward" size={16} color={theme.colors.textTertiary} />
             </TouchableOpacity>
           ))}
         </View>
@@ -275,26 +269,20 @@ export default function ProfileScreen({ navigation }) {
         <TouchableOpacity
           style={[
             styles.logoutButton,
-            { 
+            {
               backgroundColor: theme.colors.surface,
               borderColor: theme.colors.error,
               ...theme.shadows.sm,
-            }
+            },
           ]}
           onPress={handleLogout}
         >
-          <Ionicons 
-            name="log-out-outline" 
-            size={20} 
-            color={theme.colors.error} 
-          />
-          <Text style={[styles.logoutText, { color: theme.colors.error }]}>
-            Sign Out
-          </Text>
+          <Ionicons name="log-out-outline" size={20} color={theme.colors.error} />
+          <Text style={[styles.logoutText, { color: theme.colors.error }]}>Sign Out</Text>
         </TouchableOpacity>
-              </ScrollView>
-      </View>
-    );
+      </ScrollView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -460,4 +448,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_600SemiBold',
     marginLeft: 8,
   },
-}); 
+});

@@ -1,15 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  View,
-  StyleSheet,
-  Animated,
-  Image,
-} from 'react-native';
+import { View, StyleSheet, Animated, Image } from 'react-native';
 import { useTheme } from '../context/ThemeContext.js';
 
 export default function AnimatedSplash({ onAnimationComplete }) {
   const { theme, isDark } = useTheme();
-  
+
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.8)).current;
   const underlineScaleX = useRef(new Animated.Value(0)).current;
@@ -61,33 +56,30 @@ export default function AnimatedSplash({ onAnimationComplete }) {
   };
 
   return (
-    <View style={[
-      styles.container,
-      { backgroundColor: theme.colors.background }
-    ]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.logoContainer}>
-        <Animated.View style={[
-          styles.logoWrapper,
-          {
-            opacity: logoOpacity,
-            transform: [{ scale: logoScale }],
-          }
-        ]}>
-          <Image
-            source={getLogoSource()}
-            style={styles.logo}
-            resizeMode="contain"
-          />
+        <Animated.View
+          style={[
+            styles.logoWrapper,
+            {
+              opacity: logoOpacity,
+              transform: [{ scale: logoScale }],
+            },
+          ]}
+        >
+          <Image source={getLogoSource()} style={styles.logo} resizeMode="contain" />
         </Animated.View>
-        
-        <Animated.View style={[
-          styles.underline,
-          {
-            opacity: underlineOpacity,
-            backgroundColor: theme.colors.secondary,
-            transform: [{ scaleX: underlineScaleX }],
-          }
-        ]} />
+
+        <Animated.View
+          style={[
+            styles.underline,
+            {
+              opacity: underlineOpacity,
+              backgroundColor: theme.colors.secondary,
+              transform: [{ scaleX: underlineScaleX }],
+            },
+          ]}
+        />
       </View>
     </View>
   );
@@ -114,4 +106,4 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 2,
   },
-}); 
+});

@@ -47,24 +47,17 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingView}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {/* Back Button */}
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons 
-              name="arrow-back" 
-              size={24} 
-              color={theme.colors.textPrimary} 
-            />
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color={theme.colors.textPrimary} />
           </TouchableOpacity>
 
           {/* Header */}
@@ -72,7 +65,7 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.logoContainer}>
               <Logo size="xlarge" withText={true} />
             </View>
-            
+
             <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
               Sign in to your account
             </Text>
@@ -85,17 +78,19 @@ export default function LoginScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 University Email
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="mail-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="mail-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -113,20 +108,20 @@ export default function LoginScreen({ navigation }) {
 
             {/* Password Input */}
             <View style={styles.inputContainer}>
-              <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
-                Password
-              </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="lock-closed-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>Password</Text>
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="lock-closed-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -142,10 +137,10 @@ export default function LoginScreen({ navigation }) {
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.passwordToggle}
                 >
-                  <Ionicons 
-                    name={showPassword ? "eye-off-outline" : "eye-outline"} 
-                    size={20} 
-                    color={theme.colors.textSecondary} 
+                  <Ionicons
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={20}
+                    color={theme.colors.textSecondary}
                   />
                 </TouchableOpacity>
               </View>
@@ -155,11 +150,11 @@ export default function LoginScreen({ navigation }) {
             <TouchableOpacity
               style={[
                 styles.loginButton,
-                { 
+                {
                   backgroundColor: theme.colors.primary,
                   opacity: isLoading ? 0.7 : 1,
                   ...theme.shadows.md,
-                }
+                },
               ]}
               onPress={handleLogin}
               disabled={isLoading}
@@ -176,8 +171,13 @@ export default function LoginScreen({ navigation }) {
             </TouchableOpacity>
 
             {/* Forgot Password Link */}
-            <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')} style={{ alignSelf: 'center', marginBottom: 16 }}>
-              <Text style={{ color: theme.colors.primary, fontFamily: 'Inter_400Regular' }}>Forgot password?</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgotPassword')}
+              style={{ alignSelf: 'center', marginBottom: 16 }}
+            >
+              <Text style={{ color: theme.colors.primary, fontFamily: 'Inter_400Regular' }}>
+                Forgot password?
+              </Text>
             </TouchableOpacity>
 
             {/* Sign Up Link */}
@@ -186,9 +186,7 @@ export default function LoginScreen({ navigation }) {
                 Don&apos;t have an account?{' '}
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                <Text style={[styles.signupLink, { color: theme.colors.primary }]}>
-                  Sign Up
-                </Text>
+                <Text style={[styles.signupLink, { color: theme.colors.primary }]}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -287,4 +285,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Inter_400Regular',
   },
-}); 
+});

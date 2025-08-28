@@ -1,18 +1,18 @@
 // Geocoding service using Google Maps Geocoding API
 import { GOOGLE_MAPS_API_KEY } from '../config/apiKeys';
 
-export const geocodeAddress = async (address) => {
+export const geocodeAddress = async address => {
   try {
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_MAPS_API_KEY}`
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_MAPS_API_KEY}`,
     );
-    
+
     const data = await response.json();
-    
+
     if (data.status === 'OK' && data.results.length > 0) {
       const result = data.results[0];
       const location = result.geometry.location;
-      
+
       return {
         success: true,
         latitude: location.lat,
@@ -38,14 +38,14 @@ export const geocodeAddress = async (address) => {
 export const reverseGeocode = async (latitude, longitude) => {
   try {
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`,
     );
-    
+
     const data = await response.json();
-    
+
     if (data.status === 'OK' && data.results.length > 0) {
       const result = data.results[0];
-      
+
       return {
         success: true,
         address: result.formatted_address,
@@ -69,14 +69,14 @@ export const reverseGeocode = async (latitude, longitude) => {
 export const searchPlaces = async (query, location = null) => {
   try {
     let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(query)}&key=${GOOGLE_MAPS_API_KEY}`;
-    
+
     if (location) {
       url += `&location=${location.latitude},${location.longitude}&radius=50000`;
     }
-    
+
     const response = await fetch(url);
     const data = await response.json();
-    
+
     if (data.status === 'OK') {
       return {
         success: true,
@@ -106,19 +106,19 @@ export const searchPlaces = async (query, location = null) => {
 };
 
 // Fallback geocoding for when Google API is not available
-export const fallbackGeocode = (address) => {
+export const fallbackGeocode = address => {
   // Simple fallback for common BU locations
   const buLocations = {
-    'bu student center': { lat: 42.3500, lng: -71.1050 },
-    'mugar library': { lat: 42.3510, lng: -71.1040 },
-    'bu fitness center': { lat: 42.3490, lng: -71.1060 },
+    'bu student center': { lat: 42.35, lng: -71.105 },
+    'mugar library': { lat: 42.351, lng: -71.104 },
+    'bu fitness center': { lat: 42.349, lng: -71.106 },
     'starbucks bu': { lat: 42.3505, lng: -71.1045 },
-    'warren towers': { lat: 42.3520, lng: -71.1030 },
-    'marsh chapel': { lat: 42.3480, lng: -71.1070 },
+    'warren towers': { lat: 42.352, lng: -71.103 },
+    'marsh chapel': { lat: 42.348, lng: -71.107 },
     'bu beach': { lat: 42.3495, lng: -71.1055 },
     'cas building': { lat: 42.3515, lng: -71.1035 },
   };
-  
+
   const searchTerm = address.toLowerCase();
   for (const [key, coords] of Object.entries(buLocations)) {
     if (searchTerm.includes(key)) {
@@ -130,9 +130,9 @@ export const fallbackGeocode = (address) => {
       };
     }
   }
-  
+
   return {
     success: false,
     error: 'Location not found in fallback database',
   };
-}; 
+};

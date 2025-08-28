@@ -9,30 +9,26 @@ export default function SettingsScreen({ navigation }) {
   const { theme, setThemeMode, themeMode, isDark } = useTheme();
   const { logout } = useAuth();
   const insets = useSafeAreaInsets();
-  
+
   const [pushNotifications, setPushNotifications] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [autoLocation, setAutoLocation] = useState(true);
 
   const handleLogout = () => {
-    Alert.alert(
-      'Sign Out',
-      'Are you sure you want to sign out?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Sign Out',
-          style: 'destructive',
-          onPress: async () => {
-            await logout();
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Home' }],
-            });
-          },
+    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Sign Out',
+        style: 'destructive',
+        onPress: async () => {
+          await logout();
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          });
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const toggleTheme = () => {
@@ -107,21 +103,24 @@ export default function SettingsScreen({ navigation }) {
           title: 'Edit Profile',
           subtitle: 'Update your information',
           type: 'link',
-          onPress: () => Alert.alert('Edit Profile', 'Profile editing will be available in a future update.'),
+          onPress: () =>
+            Alert.alert('Edit Profile', 'Profile editing will be available in a future update.'),
         },
         {
           id: 'changePassword',
           title: 'Change Password',
           subtitle: 'Update your password',
           type: 'link',
-          onPress: () => Alert.alert('Change Password', 'Password change will be available in a future update.'),
+          onPress: () =>
+            Alert.alert('Change Password', 'Password change will be available in a future update.'),
         },
         {
           id: 'deleteAccount',
           title: 'Delete Account',
           subtitle: 'Permanently delete your account',
           type: 'link',
-          onPress: () => Alert.alert('Delete Account', 'Account deletion will be available in a future update.'),
+          onPress: () =>
+            Alert.alert('Delete Account', 'Account deletion will be available in a future update.'),
           destructive: true,
         },
       ],
@@ -129,67 +128,62 @@ export default function SettingsScreen({ navigation }) {
   ];
 
   return (
-    <View style={[
-      styles.container, 
-      { 
-        backgroundColor: theme.colors.background,
-        paddingTop: Math.max(insets.top - 40, 10),
-      }
-    ]}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          paddingTop: Math.max(insets.top - 40, 10),
+        },
+      ]}
+    >
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons 
-            name="arrow-back" 
-            size={24} 
-            color={theme.colors.textPrimary} 
-          />
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color={theme.colors.textPrimary} />
         </TouchableOpacity>
-        
-        <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>
-          Settings
-        </Text>
-        
+
+        <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>Settings</Text>
+
         <View style={styles.placeholder} />
       </View>
 
-      <ScrollView 
-        style={styles.content} 
+      <ScrollView
+        style={styles.content}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {settingsSections.map((section) => (
-          <View key={section.title} style={[
-            styles.section,
-            { 
-              backgroundColor: theme.colors.surface,
-              borderColor: theme.colors.border,
-              ...theme.shadows.sm,
-            }
-          ]}>
+        {settingsSections.map(section => (
+          <View
+            key={section.title}
+            style={[
+              styles.section,
+              {
+                backgroundColor: theme.colors.surface,
+                borderColor: theme.colors.border,
+                ...theme.shadows.sm,
+              },
+            ]}
+          >
             <Text style={[styles.sectionTitle, { color: theme.colors.textSecondary }]}>
               {section.title}
             </Text>
-            
-            {section.items.map((item) => (
+
+            {section.items.map(item => (
               <TouchableOpacity
                 key={item.id}
-                style={[
-                  styles.settingItem,
-                  { borderBottomColor: theme.colors.border }
-                ]}
+                style={[styles.settingItem, { borderBottomColor: theme.colors.border }]}
                 onPress={item.type === 'link' ? item.onPress : undefined}
                 disabled={item.type === 'toggle'}
               >
                 <View style={styles.settingContent}>
-                  <Text style={[
-                    styles.settingTitle,
-                    { color: theme.colors.textPrimary },
-                    item.destructive && { color: theme.colors.error }
-                  ]}>
+                  <Text
+                    style={[
+                      styles.settingTitle,
+                      { color: theme.colors.textPrimary },
+                      item.destructive && { color: theme.colors.error },
+                    ]}
+                  >
                     {item.title}
                   </Text>
                   {item.subtitle && (
@@ -198,23 +192,19 @@ export default function SettingsScreen({ navigation }) {
                     </Text>
                   )}
                 </View>
-                
+
                 {item.type === 'toggle' ? (
                   <Switch
                     value={item.value}
                     onValueChange={item.onValueChange}
-                    trackColor={{ 
-                      false: theme.colors.border, 
-                      true: theme.colors.primary 
+                    trackColor={{
+                      false: theme.colors.border,
+                      true: theme.colors.primary,
                     }}
                     thumbColor={theme.colors.textInverse}
                   />
                 ) : (
-                  <Ionicons 
-                    name="chevron-forward" 
-                    size={16} 
-                    color={theme.colors.textTertiary} 
-                  />
+                  <Ionicons name="chevron-forward" size={16} color={theme.colors.textTertiary} />
                 )}
               </TouchableOpacity>
             ))}
@@ -225,22 +215,16 @@ export default function SettingsScreen({ navigation }) {
         <TouchableOpacity
           style={[
             styles.logoutButton,
-            { 
+            {
               backgroundColor: theme.colors.surface,
               borderColor: theme.colors.error,
               ...theme.shadows.sm,
-            }
+            },
           ]}
           onPress={handleLogout}
         >
-          <Ionicons 
-            name="log-out-outline" 
-            size={20} 
-            color={theme.colors.error} 
-          />
-          <Text style={[styles.logoutText, { color: theme.colors.error }]}>
-            Sign Out
-          </Text>
+          <Ionicons name="log-out-outline" size={20} color={theme.colors.error} />
+          <Text style={[styles.logoutText, { color: theme.colors.error }]}>Sign Out</Text>
         </TouchableOpacity>
 
         <View style={styles.versionSection}>
@@ -339,4 +323,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Inter_400Regular',
   },
-}); 
+});

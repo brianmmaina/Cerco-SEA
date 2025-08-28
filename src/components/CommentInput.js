@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext.js';
 
-export default function CommentInput({ onSubmit, placeholder = "Add a comment...", disabled = false }) {
+export default function CommentInput({
+  onSubmit,
+  placeholder = 'Add a comment...',
+  disabled = false,
+}) {
   const { theme } = useTheme();
   const [commentText, setCommentText] = useState('');
 
@@ -22,20 +21,22 @@ export default function CommentInput({ onSubmit, placeholder = "Add a comment...
   };
 
   return (
-    <View style={[
-      styles.container,
-      { 
-        backgroundColor: theme.colors.surface,
-        borderColor: theme.colors.border,
-      }
-    ]}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.surface,
+          borderColor: theme.colors.border,
+        },
+      ]}
+    >
       <TextInput
         style={[
           styles.input,
-          { 
+          {
             color: theme.colors.textPrimary,
             backgroundColor: theme.colors.surfaceSecondary,
-          }
+          },
         ]}
         placeholder={placeholder}
         placeholderTextColor={theme.colors.textTertiary}
@@ -48,18 +49,20 @@ export default function CommentInput({ onSubmit, placeholder = "Add a comment...
       <TouchableOpacity
         style={[
           styles.sendButton,
-          { 
-            backgroundColor: commentText.trim() ? theme.colors.primary : theme.colors.surfaceSecondary,
+          {
+            backgroundColor: commentText.trim()
+              ? theme.colors.primary
+              : theme.colors.surfaceSecondary,
             opacity: commentText.trim() && !disabled ? 1 : 0.5,
-          }
+          },
         ]}
         onPress={handleSubmit}
         disabled={!commentText.trim() || disabled}
       >
-        <Ionicons 
-          name="send" 
-          size={16} 
-          color={commentText.trim() ? theme.colors.textInverse : theme.colors.textTertiary} 
+        <Ionicons
+          name="send"
+          size={16}
+          color={commentText.trim() ? theme.colors.textInverse : theme.colors.textTertiary}
         />
       </TouchableOpacity>
     </View>
@@ -92,4 +95,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-}); 
+});

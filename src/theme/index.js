@@ -7,13 +7,13 @@ export const lightTheme = {
     surface: colors.gray50,
     surfaceSecondary: colors.creamDark,
     surfaceTertiary: colors.gray100,
-    
+
     // Text colors
     textPrimary: colors.charcoal,
     textSecondary: colors.gray700,
     textTertiary: colors.gray500,
     textInverse: colors.cream,
-    
+
     // Accent colors
     primary: colors.terracotta,
     primaryLight: colors.terracottaLight,
@@ -24,18 +24,18 @@ export const lightTheme = {
     accent: colors.sage,
     accentLight: colors.sageLight,
     accentDark: colors.sageDark,
-    
+
     // Status colors
     success: colors.success,
     warning: colors.warning,
     error: colors.error,
     info: colors.info,
-    
+
     // Border colors
     border: colors.gray200,
     borderLight: colors.gray100,
     borderDark: colors.gray300,
-    
+
     // Interactive colors
     interactive: colors.terracotta,
     interactiveLight: colors.terracottaLight,
@@ -56,13 +56,13 @@ export const darkTheme = {
     surface: colors.charcoalLight,
     surfaceSecondary: colors.charcoalLighter,
     surfaceTertiary: colors.gray800,
-    
+
     // Text colors
     textPrimary: colors.cream,
     textSecondary: colors.gray300,
     textTertiary: colors.gray500,
     textInverse: colors.charcoal,
-    
+
     // Accent colors
     primary: colors.terracottaLight,
     primaryLight: colors.terracotta,
@@ -73,18 +73,18 @@ export const darkTheme = {
     accent: colors.sageLight,
     accentLight: colors.sage,
     accentDark: colors.sageDark,
-    
+
     // Status colors
     success: colors.success,
     warning: colors.warning,
     error: colors.error,
     info: colors.info,
-    
+
     // Border colors
     border: colors.gray700,
     borderLight: colors.gray800,
     borderDark: colors.gray600,
-    
+
     // Interactive colors
     interactive: colors.terracottaLight,
     interactiveLight: colors.terracotta,
@@ -112,4 +112,4 @@ export const darkTheme = {
   typography,
   blur,
   animation,
-}; 
+};

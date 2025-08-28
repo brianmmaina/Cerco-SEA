@@ -53,7 +53,10 @@ export default function CreateEventScreen({ navigation }) {
       // Request permissions
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert('Permission needed', 'Please grant camera roll permissions to select an image.');
+        Alert.alert(
+          'Permission needed',
+          'Please grant camera roll permissions to select an image.',
+        );
         return;
       }
 
@@ -73,7 +76,7 @@ export default function CreateEventScreen({ navigation }) {
     }
   };
 
-  const handleLocationSelect = (location) => {
+  const handleLocationSelect = location => {
     setEventData(prev => ({
       ...prev,
       location: location.address,
@@ -86,7 +89,14 @@ export default function CreateEventScreen({ navigation }) {
   };
 
   const handleCreateEvent = async () => {
-    if (!eventData.title || !eventData.description || !eventData.location || !eventData.date || !eventData.time || !eventData.category) {
+    if (
+      !eventData.title ||
+      !eventData.description ||
+      !eventData.location ||
+      !eventData.date ||
+      !eventData.time ||
+      !eventData.category
+    ) {
       Alert.alert('Error', 'Please fill in all required fields');
       return;
     }
@@ -127,38 +137,33 @@ export default function CreateEventScreen({ navigation }) {
   };
 
   return (
-    <View style={[
-      styles.container, 
-      { 
-        backgroundColor: theme.colors.background,
-        paddingTop: Math.max(insets.top - 40, 10),
-      }
-    ]}>
-      <KeyboardAvoidingView 
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+          paddingTop: Math.max(insets.top - 40, 10),
+        },
+      ]}
+    >
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingView}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {/* Header */}
           <View style={styles.header}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => navigation.goBack()}
-            >
-              <Ionicons 
-                name="arrow-back" 
-                size={24} 
-                color={theme.colors.textPrimary} 
-              />
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+              <Ionicons name="arrow-back" size={24} color={theme.colors.textPrimary} />
             </TouchableOpacity>
-            
+
             <Text style={[styles.headerTitle, { color: theme.colors.textPrimary }]}>
               Create Event
             </Text>
-            
+
             <View style={styles.placeholder} />
           </View>
 
@@ -172,10 +177,10 @@ export default function CreateEventScreen({ navigation }) {
               <TouchableOpacity
                 style={[
                   styles.imageContainer,
-                  { 
+                  {
                     backgroundColor: theme.colors.surface,
                     borderColor: theme.colors.border,
-                  }
+                  },
                 ]}
                 onPress={handleImageSelect}
               >
@@ -183,12 +188,10 @@ export default function CreateEventScreen({ navigation }) {
                   <Image source={{ uri: eventData.image }} style={styles.selectedImage} />
                 ) : (
                   <View style={styles.imagePlaceholder}>
-                    <Ionicons 
-                      name="camera-outline" 
-                      size={32} 
-                      color={theme.colors.textSecondary} 
-                    />
-                    <Text style={[styles.imagePlaceholderText, { color: theme.colors.textSecondary }]}>
+                    <Ionicons name="camera-outline" size={32} color={theme.colors.textSecondary} />
+                    <Text
+                      style={[styles.imagePlaceholderText, { color: theme.colors.textSecondary }]}
+                    >
                       Add Event Image
                     </Text>
                   </View>
@@ -204,16 +207,16 @@ export default function CreateEventScreen({ navigation }) {
               <TextInput
                 style={[
                   styles.input,
-                  { 
+                  {
                     backgroundColor: theme.colors.surface,
                     borderColor: theme.colors.border,
                     color: theme.colors.textPrimary,
-                  }
+                  },
                 ]}
                 placeholder="Enter event title"
                 placeholderTextColor={theme.colors.textTertiary}
                 value={eventData.title}
-                onChangeText={(text) => setEventData(prev => ({ ...prev, title: text }))}
+                onChangeText={text => setEventData(prev => ({ ...prev, title: text }))}
               />
             </View>
 
@@ -225,16 +228,16 @@ export default function CreateEventScreen({ navigation }) {
               <TextInput
                 style={[
                   styles.textArea,
-                  { 
+                  {
                     backgroundColor: theme.colors.surface,
                     borderColor: theme.colors.border,
                     color: theme.colors.textPrimary,
-                  }
+                  },
                 ]}
                 placeholder="Describe your event"
                 placeholderTextColor={theme.colors.textTertiary}
                 value={eventData.description}
-                onChangeText={(text) => setEventData(prev => ({ ...prev, description: text }))}
+                onChangeText={text => setEventData(prev => ({ ...prev, description: text }))}
                 multiline
                 numberOfLines={4}
                 textAlignVertical="top"
@@ -257,42 +260,38 @@ export default function CreateEventScreen({ navigation }) {
             {/* Date and Time */}
             <View style={styles.row}>
               <View style={[styles.inputSection, styles.halfWidth]}>
-                <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
-                  Date *
-                </Text>
+                <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>Date *</Text>
                 <TextInput
                   style={[
                     styles.input,
-                    { 
+                    {
                       backgroundColor: theme.colors.surface,
                       borderColor: theme.colors.border,
                       color: theme.colors.textPrimary,
-                    }
+                    },
                   ]}
                   placeholder="MM/DD/YYYY"
                   placeholderTextColor={theme.colors.textTertiary}
                   value={eventData.date}
-                  onChangeText={(text) => setEventData(prev => ({ ...prev, date: text }))}
+                  onChangeText={text => setEventData(prev => ({ ...prev, date: text }))}
                 />
               </View>
-              
+
               <View style={[styles.inputSection, styles.halfWidth]}>
-                <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
-                  Time *
-                </Text>
+                <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>Time *</Text>
                 <TextInput
                   style={[
                     styles.input,
-                    { 
+                    {
                       backgroundColor: theme.colors.surface,
                       borderColor: theme.colors.border,
                       color: theme.colors.textPrimary,
-                    }
+                    },
                   ]}
                   placeholder="HH:MM AM/PM"
                   placeholderTextColor={theme.colors.textTertiary}
                   value={eventData.time}
-                  onChangeText={(text) => setEventData(prev => ({ ...prev, time: text }))}
+                  onChangeText={text => setEventData(prev => ({ ...prev, time: text }))}
                 />
               </View>
             </View>
@@ -303,28 +302,32 @@ export default function CreateEventScreen({ navigation }) {
                 Category *
               </Text>
               <View style={styles.categoriesContainer}>
-                {categories.map((category) => (
+                {categories.map(category => (
                   <TouchableOpacity
                     key={category}
                     style={[
                       styles.categoryButton,
                       {
-                        backgroundColor: eventData.category === category 
-                          ? theme.colors.primary 
-                          : theme.colors.surface,
+                        backgroundColor:
+                          eventData.category === category
+                            ? theme.colors.primary
+                            : theme.colors.surface,
                         borderColor: theme.colors.border,
-                      }
+                      },
                     ]}
                     onPress={() => setEventData(prev => ({ ...prev, category }))}
                   >
-                    <Text style={[
-                      styles.categoryButtonText,
-                      { 
-                        color: eventData.category === category 
-                          ? theme.colors.textInverse 
-                          : theme.colors.textPrimary 
-                      }
-                    ]}>
+                    <Text
+                      style={[
+                        styles.categoryButtonText,
+                        {
+                          color:
+                            eventData.category === category
+                              ? theme.colors.textInverse
+                              : theme.colors.textPrimary,
+                        },
+                      ]}
+                    >
                       {category}
                     </Text>
                   </TouchableOpacity>
@@ -336,10 +339,10 @@ export default function CreateEventScreen({ navigation }) {
             <TouchableOpacity
               style={[
                 styles.createButton,
-                { 
+                {
                   backgroundColor: theme.colors.primary,
                   ...theme.shadows.md,
-                }
+                },
               ]}
               onPress={handleCreateEvent}
               disabled={isLoading}
@@ -475,4 +478,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Inter_600SemiBold',
   },
-}); 
+});

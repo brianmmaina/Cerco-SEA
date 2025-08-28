@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  collection, 
-  doc, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
-  orderBy, 
+import {
+  collection,
+  doc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  orderBy,
   onSnapshot,
   serverTimestamp,
-  getDoc
+  getDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase/config.js';
 
@@ -32,25 +32,29 @@ export const EventsProvider = ({ children }) => {
     const eventsRef = collection(db, 'events');
     const q = query(eventsRef, orderBy('createdAt', 'desc'));
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const eventsData = [];
-      snapshot.forEach((doc) => {
-        eventsData.push({
-          id: doc.id,
-          ...doc.data()
+    const unsubscribe = onSnapshot(
+      q,
+      snapshot => {
+        const eventsData = [];
+        snapshot.forEach(doc => {
+          eventsData.push({
+            id: doc.id,
+            ...doc.data(),
+          });
         });
-      });
-      setEvents(eventsData);
-      setLoading(false);
-    }, (error) => {
-      console.error('Error listening to events:', error);
-      setLoading(false);
-    });
+        setEvents(eventsData);
+        setLoading(false);
+      },
+      error => {
+        console.error('Error listening to events:', error);
+        setLoading(false);
+      },
+    );
 
     return unsubscribe;
   }, []);
 
-  const createEvent = async (eventData) => {
+  const createEvent = async eventData => {
     try {
       const eventToSave = {
         ...eventData,
@@ -84,7 +88,7 @@ export const EventsProvider = ({ children }) => {
     }
   };
 
-  const deleteEvent = async (eventId) => {
+  const deleteEvent = async eventId => {
     try {
       await deleteDoc(doc(db, 'events', eventId));
       return { success: true };
@@ -98,14 +102,14 @@ export const EventsProvider = ({ children }) => {
     try {
       const eventRef = doc(db, 'events', eventId);
       const eventDoc = await getDoc(eventRef);
-      
+
       if (!eventDoc.exists()) {
         return { success: false, error: 'Event not found' };
       }
 
       const eventData = eventDoc.data();
       const attendeesList = eventData.attendeesList || [];
-      
+
       if (attendeesList.includes(userId)) {
         return { success: false, error: 'Already joined this event' };
       }
@@ -127,14 +131,14 @@ export const EventsProvider = ({ children }) => {
     try {
       const eventRef = doc(db, 'events', eventId);
       const eventDoc = await getDoc(eventRef);
-      
+
       if (!eventDoc.exists()) {
         return { success: false, error: 'Event not found' };
       }
 
       const eventData = eventDoc.data();
       const attendeesList = eventData.attendeesList || [];
-      
+
       if (!attendeesList.includes(userId)) {
         return { success: false, error: 'Not joined this event' };
       }
@@ -158,14 +162,14 @@ export const EventsProvider = ({ children }) => {
     try {
       const eventRef = doc(db, 'events', eventId);
       const eventDoc = await getDoc(eventRef);
-      
+
       if (!eventDoc.exists()) {
         return { success: false, error: 'Event not found' };
       }
 
       const eventData = eventDoc.data();
       const likesList = eventData.likesList || [];
-      
+
       if (likesList.includes(userId)) {
         // Unlike
         const updatedLikesList = likesList.filter(id => id !== userId);
@@ -194,34 +198,36 @@ export const EventsProvider = ({ children }) => {
     return events;
   };
 
-  const getEventById = (eventId) => {
+  const getEventById = eventId => {
     return events.find(event => event.id === eventId);
   };
 
-  const getEventsByCategory = (category) => {
+  const getEventsByCategory = category => {
     return events.filter(event => event.category === category);
   };
 
-  const getEventsByUser = (userId) => {
+  const getEventsByUser = userId => {
     return events.filter(event => event.createdBy === userId);
   };
 
   return (
-    <EventsContext.Provider value={{
-      events,
-      loading,
-      createEvent,
-      updateEvent,
-      deleteEvent,
-      joinEvent,
-      leaveEvent,
-      likeEvent,
-      getAllEvents,
-      getEventById,
-      getEventsByCategory,
-      getEventsByUser,
-    }}>
+    <EventsContext.Provider
+      value={{
+        events,
+        loading,
+        createEvent,
+        updateEvent,
+        deleteEvent,
+        joinEvent,
+        leaveEvent,
+        likeEvent,
+        getAllEvents,
+        getEventById,
+        getEventsByCategory,
+        getEventsByUser,
+      }}
+    >
       {children}
     </EventsContext.Provider>
   );
-}; 
+};

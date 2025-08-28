@@ -44,7 +44,7 @@ export default function CompleteProfileScreen({ navigation }) {
 
       console.log('Updating profile with data:', profileData);
       const result = await updateProfile(profileData);
-      
+
       if (result.success) {
         console.log('Profile updated successfully');
         // Force navigation to main app
@@ -65,11 +65,11 @@ export default function CompleteProfileScreen({ navigation }) {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingView}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
@@ -78,7 +78,7 @@ export default function CompleteProfileScreen({ navigation }) {
             <View style={styles.logoContainer}>
               <Logo size="large" withText={true} />
             </View>
-            
+
             <Text style={[styles.title, { color: theme.colors.textPrimary }]}>
               Complete Your Profile
             </Text>
@@ -94,17 +94,19 @@ export default function CompleteProfileScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 Full Name *
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="person-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="person-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -124,17 +126,19 @@ export default function CompleteProfileScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 Major/Field of Study
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="school-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="school-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -153,17 +157,19 @@ export default function CompleteProfileScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 Expected Graduation Year
               </Text>
-              <View style={[
-                styles.inputWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
-                <Ionicons 
-                  name="calendar-outline" 
-                  size={20} 
-                  color={theme.colors.textSecondary} 
+              <View
+                style={[
+                  styles.inputWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
+                <Ionicons
+                  name="calendar-outline"
+                  size={20}
+                  color={theme.colors.textSecondary}
                   style={styles.inputIcon}
                 />
                 <TextInput
@@ -182,13 +188,15 @@ export default function CompleteProfileScreen({ navigation }) {
               <Text style={[styles.inputLabel, { color: theme.colors.textPrimary }]}>
                 Bio (Optional)
               </Text>
-              <View style={[
-                styles.textAreaWrapper,
-                { 
-                  backgroundColor: theme.colors.surface,
-                  borderColor: theme.colors.border,
-                }
-              ]}>
+              <View
+                style={[
+                  styles.textAreaWrapper,
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  },
+                ]}
+              >
                 <TextInput
                   style={[styles.textArea, { color: theme.colors.textPrimary }]}
                   placeholder="Tell us a bit about yourself..."
@@ -206,11 +214,11 @@ export default function CompleteProfileScreen({ navigation }) {
             <TouchableOpacity
               style={[
                 styles.completeButton,
-                { 
+                {
                   backgroundColor: theme.colors.primary,
                   opacity: isLoading ? 0.7 : 1,
                   ...theme.shadows.md,
-                }
+                },
               ]}
               onPress={handleCompleteProfile}
               disabled={isLoading}
@@ -227,10 +235,7 @@ export default function CompleteProfileScreen({ navigation }) {
             </TouchableOpacity>
 
             {/* Skip Button */}
-            <TouchableOpacity
-              style={styles.skipButton}
-              onPress={handleCompleteProfile}
-            >
+            <TouchableOpacity style={styles.skipButton} onPress={handleCompleteProfile}>
               <Text style={[styles.skipButtonText, { color: theme.colors.textSecondary }]}>
                 Skip for now
               </Text>
@@ -334,4 +339,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Inter_400Regular',
   },
-}); 
+});

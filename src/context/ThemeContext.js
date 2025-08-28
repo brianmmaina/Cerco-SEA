@@ -31,7 +31,7 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   // Save theme mode to storage
-  const saveThemeMode = async (mode) => {
+  const saveThemeMode = async mode => {
     try {
       await AsyncStorage.setItem(THEME_STORAGE_KEY, mode);
     } catch (error) {
@@ -40,7 +40,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   // Update theme mode
-  const updateThemeMode = (mode) => {
+  const updateThemeMode = mode => {
     setThemeMode(mode);
     saveThemeMode(mode);
   };
@@ -54,9 +54,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const theme = getCurrentTheme();
-  const isDark = themeMode === 'system' 
-    ? systemColorScheme === 'dark'
-    : themeMode === 'dark';
+  const isDark = themeMode === 'system' ? systemColorScheme === 'dark' : themeMode === 'dark';
 
   const value = {
     theme,
@@ -68,22 +66,20 @@ export const ThemeProvider = ({ children }) => {
   if (!isLoaded) {
     // Return a loading state or default theme while loading
     return (
-      <ThemeContext.Provider value={{
-        theme: lightTheme,
-        themeMode: 'system',
-        setThemeMode: updateThemeMode,
-        isDark: false,
-      }}>
+      <ThemeContext.Provider
+        value={{
+          theme: lightTheme,
+          themeMode: 'system',
+          setThemeMode: updateThemeMode,
+          isDark: false,
+        }}
+      >
         {children}
       </ThemeContext.Provider>
     );
   }
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
 export const useTheme = () => {
@@ -92,4 +88,4 @@ export const useTheme = () => {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
-}; 
+};

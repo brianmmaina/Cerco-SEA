@@ -40,7 +40,7 @@ export default function EventComments({ eventId, onCommentAdded }) {
     setIsLoading(true);
     try {
       const result = await addComment(eventId, newComment);
-      
+
       if (result.success) {
         setNewComment('');
         if (onCommentAdded) {
@@ -56,31 +56,27 @@ export default function EventComments({ eventId, onCommentAdded }) {
     }
   };
 
-  const handleDeleteComment = async (commentId) => {
-    Alert.alert(
-      'Delete Comment',
-      'Are you sure you want to delete this comment?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            const result = await deleteComment(eventId, commentId);
-            if (!result.success) {
-              Alert.alert('Error', result.error || 'Failed to delete comment');
-            }
-          },
+  const handleDeleteComment = async commentId => {
+    Alert.alert('Delete Comment', 'Are you sure you want to delete this comment?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          const result = await deleteComment(eventId, commentId);
+          if (!result.success) {
+            Alert.alert('Error', result.error || 'Failed to delete comment');
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
-  const formatTimestamp = (timestamp) => {
+  const formatTimestamp = timestamp => {
     return updateCommentTimeAgo({ timestamp });
   };
 
-  const canDeleteComment = (comment) => {
+  const canDeleteComment = comment => {
     return user && (comment.userId === user.id || user.isAdmin);
   };
 
@@ -100,17 +96,13 @@ export default function EventComments({ eventId, onCommentAdded }) {
       <ScrollView style={styles.commentsList} showsVerticalScrollIndicator={false}>
         {displayedComments.length === 0 ? (
           <View style={styles.emptyState}>
-            <Ionicons
-              name="chatbubble-outline"
-              size={48}
-              color={theme.colors.textTertiary}
-            />
+            <Ionicons name="chatbubble-outline" size={48} color={theme.colors.textTertiary} />
             <Text style={[styles.emptyText, { color: theme.colors.textTertiary }]}>
               No comments yet. Be the first to comment!
             </Text>
           </View>
         ) : (
-          displayedComments.map((comment) => (
+          displayedComments.map(comment => (
             <View key={comment.id} style={styles.commentItem}>
               <View style={styles.commentHeader}>
                 <View style={styles.userInfo}>
@@ -126,11 +118,7 @@ export default function EventComments({ eventId, onCommentAdded }) {
                     onPress={() => handleDeleteComment(comment.id)}
                     style={styles.deleteButton}
                   >
-                    <Ionicons
-                      name="trash-outline"
-                      size={16}
-                      color={theme.colors.error}
-                    />
+                    <Ionicons name="trash-outline" size={16} color={theme.colors.error} />
                   </TouchableOpacity>
                 )}
               </View>
@@ -155,13 +143,15 @@ export default function EventComments({ eventId, onCommentAdded }) {
 
       {user && (
         <View style={styles.addCommentSection}>
-          <View style={[
-            styles.inputContainer,
-            {
-              backgroundColor: theme.colors.surface,
-              borderColor: theme.colors.border,
-            }
-          ]}>
+          <View
+            style={[
+              styles.inputContainer,
+              {
+                backgroundColor: theme.colors.surface,
+                borderColor: theme.colors.border,
+              },
+            ]}
+          >
             <TextInput
               style={[styles.commentInput, { color: theme.colors.textPrimary }]}
               placeholder="Add a comment..."
@@ -177,7 +167,7 @@ export default function EventComments({ eventId, onCommentAdded }) {
                 {
                   backgroundColor: newComment.trim() ? theme.colors.primary : theme.colors.border,
                   opacity: isLoading ? 0.7 : 1,
-                }
+                },
               ]}
               onPress={handleAddComment}
               disabled={!newComment.trim() || isLoading}
@@ -285,4 +275,4 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 16,
   },
-}); 
+});

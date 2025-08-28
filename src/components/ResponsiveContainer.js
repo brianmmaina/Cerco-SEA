@@ -2,23 +2,28 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useResponsiveDimensions } from '../utils/useResponsiveDimensions.js';
 
-export const ResponsiveContainer = ({ 
-  children, 
-  style, 
+export const ResponsiveContainer = ({
+  children,
+  style,
   padding = 'md',
   maxWidth,
   center = false,
-  ...props 
+  ...props
 }) => {
   const { isTablet, spacing, responsiveWidth } = useResponsiveDimensions();
 
   const getPadding = () => {
     switch (padding) {
-      case 'xs': return spacing.xs;
-      case 'sm': return spacing.sm;
-      case 'lg': return spacing.lg;
-      case 'xl': return spacing.xl;
-      default: return spacing.md;
+      case 'xs':
+        return spacing.xs;
+      case 'sm':
+        return spacing.sm;
+      case 'lg':
+        return spacing.lg;
+      case 'xl':
+        return spacing.xl;
+      default:
+        return spacing.md;
     }
   };
 
@@ -39,13 +44,13 @@ export const ResponsiveContainer = ({
   );
 };
 
-export const ResponsiveRow = ({ 
-  children, 
-  style, 
+export const ResponsiveRow = ({
+  children,
+  style,
   justifyContent = 'space-between',
   alignItems = 'center',
   gap,
-  ...props 
+  ...props
 }) => {
   const { spacing } = useResponsiveDimensions();
 
@@ -66,15 +71,9 @@ export const ResponsiveRow = ({
   );
 };
 
-export const ResponsiveGrid = ({ 
-  children, 
-  columns = 2,
-  gap = 'md',
-  style,
-  ...props 
-}) => {
+export const ResponsiveGrid = ({ children, columns = 2, gap = 'md', style, ...props }) => {
   const { isTablet, spacing } = useResponsiveDimensions();
-  
+
   const gridColumns = isTablet ? Math.max(columns, 2) : 1;
   const gridGap = spacing[gap] || spacing.md;
 
@@ -88,10 +87,8 @@ export const ResponsiveGrid = ({
 
   return (
     <View style={gridStyle} {...props}>
-      {React.Children.map(children, (child) => (
-        <View style={{ flex: 1 / gridColumns }}>
-          {child}
-        </View>
+      {React.Children.map(children, child => (
+        <View style={{ flex: 1 / gridColumns }}>{child}</View>
       ))}
     </View>
   );
@@ -108,4 +105,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-}); 
+});

@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  collection, 
-  doc, 
-  addDoc, 
-  deleteDoc, 
-  query, 
-  orderBy, 
+import {
+  collection,
+  doc,
+  addDoc,
+  deleteDoc,
+  query,
+  orderBy,
   onSnapshot,
-  serverTimestamp 
+  serverTimestamp,
 } from 'firebase/firestore';
 import { db } from '../firebase/config.js';
 import { useAuth } from './AuthContext.js';
@@ -23,25 +23,29 @@ export const CommentsProvider = ({ children }) => {
     const commentsRef = collection(db, 'comments');
     const q = query(commentsRef, orderBy('createdAt', 'desc'));
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const commentsData = {};
-      snapshot.forEach((doc) => {
-        const comment = { id: doc.id, ...doc.data() };
-        const eventId = comment.eventId;
-        if (!commentsData[eventId]) {
-          commentsData[eventId] = [];
-        }
-        commentsData[eventId].push(comment);
-      });
-      setComments(commentsData);
-    }, (error) => {
-      console.error('Error listening to comments:', error);
-    });
+    const unsubscribe = onSnapshot(
+      q,
+      snapshot => {
+        const commentsData = {};
+        snapshot.forEach(doc => {
+          const comment = { id: doc.id, ...doc.data() };
+          const eventId = comment.eventId;
+          if (!commentsData[eventId]) {
+            commentsData[eventId] = [];
+          }
+          commentsData[eventId].push(comment);
+        });
+        setComments(commentsData);
+      },
+      error => {
+        console.error('Error listening to comments:', error);
+      },
+    );
 
     return unsubscribe;
   }, []);
 
-  const getCommentsForEvent = (eventId) => {
+  const getCommentsForEvent = eventId => {
     return comments[eventId] || [];
   };
 
@@ -55,7 +59,9 @@ export const CommentsProvider = ({ children }) => {
         eventId,
         userId: user.id,
         userName: user.name || 'Anonymous',
-        userAvatar: user.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face',
+        userAvatar:
+          user.avatar ||
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face',
         comment: commentText.trim(),
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
@@ -79,13 +85,15 @@ export const CommentsProvider = ({ children }) => {
     }
   };
 
-  const updateCommentTimeAgo = (comment) => {
+  const updateCommentTimeAgo = comment => {
     if (!comment.createdAt) return 'Just now';
-    
+
     const now = new Date();
-    const commentTime = comment.createdAt.toDate ? comment.createdAt.toDate() : new Date(comment.createdAt);
+    const commentTime = comment.createdAt.toDate
+      ? comment.createdAt.toDate()
+      : new Date(comment.createdAt);
     const diffInMinutes = Math.floor((now - commentTime) / (1000 * 60));
-    
+
     if (diffInMinutes < 1) {
       return 'Just now';
     } else if (diffInMinutes < 60) {
@@ -105,14 +113,16 @@ export const CommentsProvider = ({ children }) => {
   };
 
   return (
-    <CommentsContext.Provider value={{
-      comments,
-      getCommentsForEvent,
-      addComment,
-      deleteComment,
-      updateCommentTimeAgo,
-      refreshCommentTimes,
-    }}>
+    <CommentsContext.Provider
+      value={{
+        comments,
+        getCommentsForEvent,
+        addComment,
+        deleteComment,
+        updateCommentTimeAgo,
+        refreshCommentTimes,
+      }}
+    >
       {children}
     </CommentsContext.Provider>
   );
@@ -124,4 +134,4 @@ export const useComments = () => {
     throw new Error('useComments must be used within a CommentsProvider');
   }
   return context;
-}; 
+};

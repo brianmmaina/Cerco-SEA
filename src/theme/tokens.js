@@ -6,7 +6,7 @@ export const colors = {
   terracotta: '#C77B5C',
   brass: '#D6B370',
   sage: '#8A9A5B',
-  
+
   // Extended palette
   charcoalLight: '#2A2A2A',
   charcoalLighter: '#3A3A3A',
@@ -18,13 +18,13 @@ export const colors = {
   brassDark: '#C8A060',
   sageLight: '#9AAA6B',
   sageDark: '#7A8A4B',
-  
+
   // Semantic colors
   success: '#8A9A5B',
   warning: '#D6B370',
   error: '#C77B5C',
   info: '#8A9A5B',
-  
+
   // Neutral grays
   gray50: '#FAFAFA',
   gray100: '#F5F5F5',
@@ -132,4 +132,4 @@ export const animation = {
     easeOut: 'ease-out',
     easeInOut: 'ease-in-out',
   },
-}; 
+};
