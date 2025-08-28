@@ -171,7 +171,6 @@ dist/
 
 # Package manager files
 yarn.lock
-package-lock.json
 
 # Test files
 test-app.js
