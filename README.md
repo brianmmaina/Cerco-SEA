@@ -194,23 +194,6 @@ EXPO_PUBLIC_FIREBASE_API_KEY=your_key
 EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_key
 ```
 
-## Design System
-
-### Colors
-
-- **Primary**: BU Crimson (#C1002F)
-- **Secondary**: BU Gold (#FFC72C)
-- **Success**: Green (#34C759)
-- **Error**: Red (#B00020)
-
-### Typography
-
-- **H1**: 32px, Bold
-- **H2**: 24px, Semi-bold
-- **Heading**: 18px, Semi-bold
-- **Body**: 16px, Regular
-- **Caption**: 12px, Regular
-
 ## Security Features
 
 - **Student Email Validation**: Only verified student domains allowed
@@ -261,13 +244,6 @@ firebase deploy --only functions
 - **Real-time Updates**: Minimal network overhead
 - **Offline Support**: Basic offline functionality
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## License
 
@@ -275,7 +251,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For support, email: support@cerco.app
+For support, email: bmmaina@bu.edu
 
 ---
 
